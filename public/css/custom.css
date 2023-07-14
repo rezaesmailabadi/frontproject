@@ -1,3 +1,28 @@
-.nav.navbar-nav li a.active, .nav-right li a.active, .user-menu li a.active{
-    color: #e73243;
+:root {
+    --mainColor: #e73243
+}
+
+.nav.navbar-nav li a.active,
+.nav-right li a.active,
+.user-menu li a.active,
+.text-error {
+    color: var(--mainColor);
+}
+
+.text-sm{
+    font-size: 16px;
+}
+
+.text-gray{
+    color: #0a0a0a;
+}
+
+.ml-3{
+    /* margin-left: 4px; */
+}
+
+.flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

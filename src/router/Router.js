@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import Home from '../pages/home/Home';
 import Login from '../pages/login/Login';
-import Signup from '../pages/signup/Signup';
 import Page404 from '../pages/404/404'
 import Page500 from '../pages/500/500';
 import AboutUs from '../pages/about us/AboutUs';
@@ -22,6 +21,7 @@ import PublishedAd from '../pages/published ad/PublishedAd';
 import Support from '../pages/support/Support';
 import Dashboard from '../pages/my profile/Dashboard';
 import Advertisements from '../pages/advertisements/Advertisements';
+import VerifyCode from '../pages/verify code/VerifyCode';
 
 function Router() {
     return (
@@ -43,10 +43,10 @@ function Router() {
                 <Route path="pending-ads" element={<PendingAds />} />
             </Route>
 
+            <Route path="/verification" element={<VerifyCode />} />
             <Route path="/published-ad" element={<PublishedAd />} />
             <Route path="/support" element={<Support />} />
             <Route path="/error-500" element={<Page500 />} />
-            <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
             <Route path="*" element={<Page404 />} />
