@@ -1,0 +1,3 @@
+.nav.navbar-nav li a.active, .nav-right li a.active, .user-menu li a.active{
+    color: #e73243;
+}

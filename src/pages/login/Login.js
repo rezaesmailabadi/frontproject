@@ -1,36 +1,37 @@
-import React from 'react'
+import { useState } from 'react'
 
 export default function Login() {
+
+    const [value, setValue] = useState("");
+
+    const signInHandler = () => {
+        if (value.match(/^(\\+98|0)?9\\d{9}$/)) {
+            
+        }
+        if (value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+
+        }
+    }
+
     return (
         <section id="main" class="clearfix user-page">
             <div class="container">
                 <div class="row text-center">
-
                     <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
                         <div class="user-account">
-                            <h2>فرم ورود</h2>
-
-                            <form action="#">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="نام کاربری" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="رمزعبور" />
-                                </div>
-                                <button type="submit" class="btn">ورود</button>
-                            </form>
-
-
-                            <div class="user-option">
-                                <div class="checkbox pull-left">
-                                    <label for="logged"><input type="checkbox" name="logged" id="logged"/>مرا نگه دار </label>
-                                </div>
-                                <div class="pull-right forgot-password">
-                                    <a href="#">فراموشی رمزعبور</a>
-                                </div>
+                            <h2>ورود | ثبت‌نام</h2>
+                            <h4>سلام !</h4>
+                            <div class="form-group">
+                                <input
+                                    value={value}
+                                    onChange={e => setValue(e.target.value)}
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="لطفا شماره موبایل یا ایمیل خود را وارد کنید"
+                                />
                             </div>
+                            <button class="btn" onClick={signInHandler}>ورود</button>
                         </div>
-                        <a href="#" class="btn-primary">ساخت اکانت جدید</a>
                     </div>
                 </div>
             </div>

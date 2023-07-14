@@ -11,7 +11,7 @@ import Categories from '../pages/categories/Categories';
 import ContactUs from '../pages/contact us/ContactUs';
 import Details from '../pages/details/Details';
 
-import MyProfile from '../pages/my profile/MyProfile';
+import MyProfile from '../pages/my profile/profile/MyProfile';
 import ArchivedAds from '../pages/my profile/archived ads/ArchivedAds';
 import DeleteAccount from '../pages/my profile/delete account/DeleteAccount';
 import MyAds from '../pages/my profile/my ads/MyAds';
@@ -21,6 +21,7 @@ import PendingAds from '../pages/my profile/pendeing ads/PendingAds';
 import PublishedAd from '../pages/published ad/PublishedAd';
 import Support from '../pages/support/Support';
 import Dashboard from '../pages/my profile/Dashboard';
+import Advertisements from '../pages/advertisements/Advertisements';
 
 function Router() {
     return (
@@ -31,12 +32,13 @@ function Router() {
             <Route path="/categories" element={<Categories />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/details" element={<Details />} />
+            <Route path="/advertisements" element={<Advertisements />} />
 
             <Route path="/dashboard/" element={<Dashboard />}>
                 <Route index={true} element={<MyProfile />} />
                 <Route path="archived-ads" element={<ArchivedAds />} />
                 <Route path="delete-account" element={<DeleteAccount />} />
-                <Route index={false} path="my-ads" element={<MyAds />} />
+                <Route path="my-ads" element={<MyAds />} />
                 <Route path="favorite-ads" element={<MyFavoriteAds />} />
                 <Route path="pending-ads" element={<PendingAds />} />
             </Route>

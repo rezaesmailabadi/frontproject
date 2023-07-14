@@ -5,7 +5,7 @@ export default function Advertising() {
         <div className="ad-item row">
             <div className="item-image-box col-lg-4">
                 <div className="item-image">
-                    <a href="details.html"><img src="images/trending/1.jpg" alt="Image" className="img-fluid" /></a>
+                    <a href="details.html"><img src="/images/trending/1.jpg" alt="Image" className="img-fluid" /></a>
                     <a href="#" className="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i className="fa fa-check-square-o"></i></a>
                 </div>
             </div>
