@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { phoneValidation } from '../../helper/validation';
+import { emailValidation, phoneValidation } from '../../helper/validation';
 
 export default function Login() {
 
@@ -22,7 +22,7 @@ export default function Login() {
             [e.target.name]: value,
         });
 
-        if (value.match(phoneValidation())) {
+        if (value.match(emailValidation())) {
             setInvalidValue(false);
         } else {
             setInvalidValue(true);
