@@ -79,7 +79,6 @@ export default function Categories() {
 
           <div class="category-info">
             <div class="row">
-              <h1>haromzadeh</h1>
               <div class="col-lg-3 col-md-4">
                 <div class="category-accordion tr-accordion" id="accordion">
                   <div class="card">
@@ -466,7 +465,7 @@ export default function Categories() {
                     </a>
                   </div>
 
-                  <Advertising />
+                  {/* <Advertising /> */}
                   <div class="text-center">
                     <ul class="pagination ">
                       <li>
