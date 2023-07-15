@@ -32,10 +32,10 @@ function Router() {
         element={<AddAdvertisingDetails />}
       />
       <Route path="/add-advertising" element={<AddAdvertising />} />
-      <Route path="/categories/:id" element={<Categories />} />
+      {/* <Route path="/categories/:id" element={<Categories />} /> */}
       <Route path="/contact-us" element={<ContactUs />} />
-      <Route path="/details" element={<Details />} />
-      <Route path="/advertisements" element={<Advertisements />} />
+      <Route path="/details/:id" element={<Details />} />
+      <Route path="/advertisements/:id?" element={<Advertisements />} />
 
       {/* <Route exact path="/category/:id" element={<CategoryOrder />} /> */}
 

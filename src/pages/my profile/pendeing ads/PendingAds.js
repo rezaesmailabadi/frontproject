@@ -3,8 +3,8 @@ import Advertising from '../../../components/Advertising'
 
 export default function PendingAds() {
     return (
-        <div class="col-md-8">
-            <div class="my-ads section">
+        <div className="col-md-8">
+            <div className="my-ads section">
                 <h2>آگهی‌های در انتظار</h2>
                 <Advertising />
                 <Advertising />

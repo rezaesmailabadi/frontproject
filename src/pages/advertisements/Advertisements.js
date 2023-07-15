@@ -1,43 +1,75 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertising from '../../components/Advertising'
 import SomthingSell from '../../components/SomthingSell'
+import { getCategory } from '../../redux/category/categoryActions';
 
 export default function Advertisements() {
+
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const navigate = useNavigate();
+
+    const { id } = useParams();
+
+    const { categories } = useSelector(state => state.categoryState);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchData = () => {
+            if (!categories) {
+                dispatch(getCategory());
+            }
+        }
+
+        fetchData();
+
+        if (categories && id) {
+            const category = categories?.find(category => category.id == id);
+            if (category) {
+                setSelectedCategory(category)
+            } else navigate("/error")
+        }else setSelectedCategory(null)
+
+
+    }, [categories, id]);
+
     return (
         <>
-            <section id="main" class="clearfix category-page main-categories">
-                <div class="container">
-                    <div class="breadcrumb-section">
+            <section id="main" className="clearfix category-page main-categories">
+                <div className="container">
+                    <div className="breadcrumb-section">
 
-                        <ol class="breadcrumb">
-                            <li><a href="index.html">خانه</a></li>
+                        <ol className="breadcrumb">
+                            <li><Link to="/">خانه</Link></li>
                             <li>کالاهای دیجیتال و گجت</li>
                         </ol>
-                        <h2 class="title">گوشی موبایل</h2>
+                        <h2 className="title">گوشی موبایل</h2>
                     </div>
-                    <div class="banner">
+                    <div className="banner">
 
 
-                        <div class="banner-form banner-form-full">
+                        <div className="banner-form banner-form-full">
                             <form action="#">
 
-                                <div class="dropdown category-dropdown">
-                                    <a data-toggle="dropdown" href="#"><span class="change-text">انتخاب دسته‌بندی</span> <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu category-change">
+                                <div className="dropdown category-dropdown">
+                                    <a data-toggle="dropdown" href="#"><span className="change-text">انتخاب دسته‌بندی</span> <i
+                                        className="fa fa-angle-down"></i></a>
+                                    <ul className="dropdown-menu category-change">
                                         <li><a href="#">مد و زیبایی</a></li>
                                         <li><a href="#">ماشین و وسایل نقلیه</a></li>
-                                        <li><a href="./details.html">دستگاه‌های دیجیتال و گجت‌ها</a></li>
+                                        <li><a href="#">دستگاه‌های دیجیتال و گجت‌ها</a></li>
                                         <li><a href="#">املاک</a></li>
                                         <li><a href="#">ورزشی و بازی</a></li>
                                     </ul>
                                 </div>
 
 
-                                <div class="dropdown category-dropdown language-dropdown ">
-                                    <a data-toggle="dropdown" href="#"><span class="change-text">ایران</span> <i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu  language-change">
+                                <div className="dropdown category-dropdown language-dropdown ">
+                                    <a data-toggle="dropdown" href="#"><span className="change-text">ایران</span> <i
+                                        className="fa fa-angle-down"></i></a>
+                                    <ul className="dropdown-menu  language-change">
                                         <li><a href="#">ایران</a></li>
                                         <li><a href="#">عراق</a></li>
                                         <li><a href="#">چین</a></li>
@@ -45,79 +77,71 @@ export default function Advertisements() {
                                     </ul>
                                 </div>
 
-                                <input type="text" class="form-control" placeholder="عبارت مورد نظر خود را تایپ کنید" />
-                                <button type="submit" class="form-control" value="Search">جستجو</button>
+                                <input type="text" className="form-control" placeholder="عبارت مورد نظر خود را تایپ کنید" />
+                                <button type="submit" className="form-control" value="Search">جستجو</button>
                             </form>
                         </div>
                     </div>
 
-                    <div class="category-info">
-                        <div class="row">
+                    <div className="category-info">
+                        <div className="row">
 
-                            <div class="col-lg-3 col-md-4">
-                                <div class="category-accordion tr-accordion" id="accordion">
-                                    <div class="card">
-                                        <div class="card-header" id="heading-1">
+                            <div className="col-lg-3 col-md-4">
+                                <div className="category-accordion tr-accordion" id="accordion">
+                                    <div className="card">
+                                        <div className="card-header" id="heading-1">
                                             <button data-toggle="collapse" data-target="#collapse-1" aria-expanded="true"
                                                 aria-controls="collapse-1">همه دسته‌بندی‌ها</button>
                                         </div>
 
-                                        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion">
-                                            <div class="card-body">
+                                        <div id="collapse-1" className="collapse show" aria-labelledby="heading-1" data-parent="#accordion">
+                                            <div className="card-body">
                                                 <ul>
-                                                    <li><a href="categories.html"><i class="icofont icofont-laptop-alt"></i>کالاهای دیجیتال و
-                                                        گجت<span>(1029)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-police-car-alt-2"></i>ماشین و وسایل
-                                                        نقلیه<span>(1228)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-building-alt"></i>املاک<span>(178)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-ui-home"></i>خانه و دکوراسیون<span>(7163)</span></a>
-                                                    </li>
-                                                    <li><a href="#"><i class="icofont icofont-animal-dog"></i>حیوانات خانگی <span>(8709)</span></a>
-                                                    </li>
-                                                    <li><a href="#"><i class="icofont icofont-nurse"></i>سلامت و زیبایی<span>(3129)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-hockey"></i>ورزشی و تفریحی<span>(2019)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-burger"></i>غذا و خوراکی<span>(323)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-girl-alt"></i>بچگانه<span>(425)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-gift"></i>کادو و هدیه<span>(3223)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-architecture-alt"></i>محصولات
-                                                        دفتر<span>(3283)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-animal-cat-alt-1"></i>کار دستی و
-                                                        هنری<span>(3221)</span></a></li>
-                                                    <li><a href="#"><i class="icofont icofont-abc"></i>متفرقه<span>(3129)</span></a></li>
+                                                    {
+                                                        categories?.map(category =>
+                                                            <li key={category.id}>
+                                                                <Link to={`/advertisements/${category.id}`}>
+                                                                    <i className="icofont icofont-laptop-alt"></i>
+                                                                    <span style={{ color: id == category.id ? "red" : "#000" }}>{category.name}</span>
+                                                                    <span>(1029)</span>
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header" id="heading-2">
-                                            <button class="collapsed" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false"
+                                    <div className="card">
+                                        <div className="card-header" id="heading-2">
+                                            <button className="collapsed" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false"
                                                 aria-controls="collapse-2">وضعیت</button>
                                         </div>
-                                        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion">
-                                            <div class="card-body">
+                                        <div id="collapse-2" className="collapse" aria-labelledby="heading-2" data-parent="#accordion">
+                                            <div className="card-body">
                                                 <label for="new"><input type="checkbox" name="new" id="new" />جدید</label>
                                                 <label for="used"><input type="checkbox" name="used" id="used" />دسته دوم</label>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header" id="heading-3">
-                                            <button class="collapsed" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false"
+                                    <div className="card">
+                                        <div className="card-header" id="heading-3">
+                                            <button className="collapsed" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false"
                                                 aria-controls="collapse-3">قیمت</button>
                                         </div>
-                                        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <div class="price-range">
+                                        <div id="collapse-3" className="collapse" aria-labelledby="heading-3" data-parent="#accordion">
+                                            <div className="card-body">
+                                                <div className="price-range">
 
-                                                    <div class="price">
+                                                    <div className="price">
                                                         <span>100  تومان - <strong>700
                                                             تومان</strong></span>
-                                                        <div class="dropdown category-dropdown pull-right">
-                                                            <a data-toggle="dropdown" href="#"><span class="change-text">تومان</span><i
-                                                                class="fa fa-caret-square-o-down"></i></a>
-                                                            <ul class="dropdown-menu category-change">
+                                                        <div className="dropdown category-dropdown pull-right">
+                                                            <a data-toggle="dropdown" href="#"><span className="change-text">تومان</span><i
+                                                                className="fa fa-caret-square-o-down"></i></a>
+                                                            <ul className="dropdown-menu category-change">
                                                                 <li><a href="#"> 10تومان </a></li>
                                                                 <li><a href="#"> 15تومان </a></li>
                                                                 <li><a href="#"> 20تومان </a></li>
@@ -134,13 +158,13 @@ export default function Advertisements() {
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header" id="heading-4">
-                                            <button class="collapsed" data-toggle="collapse" data-target="#collapse-4" aria-expanded="false"
+                                    <div className="card">
+                                        <div className="card-header" id="heading-4">
+                                            <button className="collapsed" data-toggle="collapse" data-target="#collapse-4" aria-expanded="false"
                                                 aria-controls="collapse-4">پست شده توسط</button>
                                         </div>
-                                        <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion">
-                                            <div class="card-body">
+                                        <div id="collapse-4" className="collapse" aria-labelledby="heading-4" data-parent="#accordion">
+                                            <div className="card-body">
                                                 <label for="شخصی"><input type="checkbox" name="شخصی" id="شخصی" /> شخصی</label>
                                                 <label for="dealer"><input type="checkbox" name="dealer" id="dealer" />فروشنده</label>
                                                 <label for="reseller"><input type="checkbox" name="reseller" id="reseller" />تامین‌کننده</label>
@@ -150,21 +174,21 @@ export default function Advertisements() {
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header" id="heading-5">
-                                            <button class="collapsed" data-toggle="collapse" data-target="#collapse-5" aria-expanded="false"
+                                    <div className="card">
+                                        <div className="card-header" id="heading-5">
+                                            <button className="collapsed" data-toggle="collapse" data-target="#collapse-5" aria-expanded="false"
                                                 aria-controls="collapse-5">برند</button>
                                         </div>
-                                        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <input type="text" placeholder="جستجو برند " class="form-control" />
+                                        <div id="collapse-5" className="collapse" aria-labelledby="heading-5" data-parent="#accordion">
+                                            <div className="card-body">
+                                                <input type="text" placeholder="جستجو برند " className="form-control" />
                                                 <label for="apple"><input type="checkbox" name="apple" id="apple" /> اپل</label>
                                                 <label for="htc"><input type="checkbox" name="htc" id="htc" /> اچ تی سی</label>
                                                 <label for="micromax"><input type="checkbox" name="micromax" id="micromax" /> سامسونگ</label>
                                                 <label for="nokia"><input type="checkbox" name="nokia" id="nokia" />نوکیا</label>
                                                 <label for="others"><input type="checkbox" name="others" id="others" /> دیگر</label>
                                                 <label for="samsung"><input type="checkbox" name="samsung" id="samsung" /> شیائومی</label>
-                                                <span class="border"></span>
+                                                <span className="border"></span>
                                                 <label for="acer"><input type="checkbox" name="acer" id="acer" /> سونی</label>
                                                 <label for="bird"><input type="checkbox" name="bird" id="bird" /> برند</label>
                                                 <label for="blackberry"><input type="checkbox" name="blackberry" id="blackberry" /> برند</label>
@@ -183,19 +207,24 @@ export default function Advertisements() {
                             </div>
 
 
-                            <div class="col-md-8 col-lg-7">
-                                <div class="section recommended-ads">
+                            <div className="col-md-8 col-lg-7">
+                                <div className="section recommended-ads">
 
-                                    <div class="featured-top">
-                                        <h4>توصیه شده برای شما</h4>
-                                        <div class="dropdown pull-right">
+                                    <div className="featured-top">
+                                        <h4>
+                                            {selectedCategory ? 
+                                            "آگهی های مرتبط با "+selectedCategory.name
+                                            : "همه آگهی ها"
+                                        }
+                                        </h4>
+                                        <div className="dropdown pull-right">
 
 
-                                            <div class="dropdown category-dropdown">
+                                            <div className="dropdown category-dropdown">
                                                 <h5>چینش:</h5>
-                                                <a data-toggle="dropdown" href="#"><span class="change-text">محبوبیت</span><i
-                                                    class="fa fa-caret-square-o-down"></i></a>
-                                                <ul class="dropdown-menu category-change">
+                                                <a data-toggle="dropdown" href="#"><span className="change-text">محبوبیت</span><i
+                                                    className="fa fa-caret-square-o-down"></i></a>
+                                                <ul className="dropdown-menu category-change">
                                                     <li><a href="#">جدیدترین</a></li>
                                                     <li><a href="#">قدیمیترین</a></li>
                                                     <li><a href="#">همه</a></li>
@@ -206,25 +235,16 @@ export default function Advertisements() {
                                     </div>
 
                                     <Advertising />
-                                    <Advertising />
-                                    <Advertising />
-                                    <Advertising />
-                                    <Advertising />
 
-                                    <div class="ad-section text-center">
-                                        <a href="#"><img src="/images/ads/3.jpg" alt="Image" class="img-fluid" /></a>
+                                    <div className="ad-section text-center">
+                                        <a href="#"><img src="/images/ads/3.jpg" alt="Image" className="img-fluid" /></a>
                                     </div>
 
-                                    <Advertising />
-                                    <Advertising />
-                                    <Advertising />
-                                    <Advertising />
-
-                                    <div class="text-center">
-                                        <ul class="pagination ">
-                                            <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                                    <div className="text-center">
+                                        <ul className="pagination ">
+                                            <li><a href="#"><i className="fa fa-chevron-right"></i></a></li>
                                             <li><a href="#">1</a></li>
-                                            <li class="active"><a href="#">2</a></li>
+                                            <li className="active"><a href="#">2</a></li>
                                             <li><a href="#">3</a></li>
                                             <li><a href="#">4</a></li>
                                             <li><a href="#">5</a></li>
@@ -232,15 +252,15 @@ export default function Advertisements() {
                                             <li><a href="#">10</a></li>
                                             <li><a href="#">20</a></li>
                                             <li><a href="#">30</a></li>
-                                            <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                                            <li><a href="#"><i className="fa fa-chevron-left"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-2 d-none d-lg-block">
-                                <div class="advertisement text-center">
-                                    <a href="#"><img src="/images/ads/2.jpg" alt="" class="img-fluid" /></a>
+                            <div className="col-md-2 d-none d-lg-block">
+                                <div className="advertisement text-center">
+                                    <a href="#"><img src="/images/ads/2.jpg" alt="" className="img-fluid" /></a>
                                 </div>
                             </div>
                         </div>

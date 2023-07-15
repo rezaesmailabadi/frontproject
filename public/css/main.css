@@ -590,15 +590,21 @@ textarea {
 }
 
 .category-ad {
-	background-color: #fff;
+	background-color: rgb(255, 255, 255);
 	display: inline-block;
+	width: 100%;
 	padding: 40px 0px 10px;
 	border-radius: 3px;
 }
 
+.category-list{
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
 .category-list .category-item {
 	width: 25%;
-	float: left;
 	margin-bottom: 30px;
 }
 

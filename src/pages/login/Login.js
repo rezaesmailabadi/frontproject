@@ -43,25 +43,25 @@ export default function Login() {
     };
 
     return (
-        <section id="main" class="clearfix user-page">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                        <div class="user-account">
+        <section id="main" className="clearfix user-page">
+            <div className="container">
+                <div className="row text-center">
+                    <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                        <div className="user-account">
                             <h2>ورود | ثبت‌نام</h2>
                             <h4>سلام !</h4>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <input
                                     value={dataValue.email}
                                     onChange={(e) => changeUserFieldHandler(e)}
                                     name="email"
                                     type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     placeholder="لطفا شماره موبایل یا ایمیل خود را وارد کنید"
                                 />
                                 {invalidValue && <span className="text-error">لطفا به درستی وارد کنید</span>}
                             </div>
-                            <button class="btn" onClick={signInHandler}>ورود</button>
+                            <button className="btn" onClick={signInHandler}>ورود</button>
                         </div>
                     </div>
                 </div>

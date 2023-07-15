@@ -17,8 +17,20 @@
     color: #0a0a0a;
 }
 
-.ml-3{
-    /* margin-left: 4px; */
+.section-title.featured-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-title.featured-top span{
+    font-size: 20px;
+    color: rgba(128, 128, 128, 0.494);
+}
+
+.section-title.featured-top span i:first-child{
+    display: inline-block;
+    margin-left: 8px;
 }
 
 .flex-center{

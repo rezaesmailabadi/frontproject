@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Advertising() {
   const { id } = useParams();
@@ -27,17 +27,17 @@ export default function Advertising() {
     <div className="ad-item row">
       {orders.map((order) => {
         return (
-          <div>
-            <div className="item-image-box col-lg-4">
+          <>
+            <div key={order.id} className="item-image-box col-lg-4">
               <div className="item-image">
-                <a href="details.html">
+                <Link to={`/details/:id`}>
                   <img
                     src="/images/trending/1.jpg"
                     alt="Image"
                     className="img-fluid"
                   />
-                </a>
-                <a
+                </Link>
+                {/* <a
                   href="#"
                   className="verified"
                   data-toggle="tooltip"
@@ -45,7 +45,7 @@ export default function Advertising() {
                   title="تایید شده"
                 >
                   <i className="fa fa-check-square-o"></i>
-                </a>
+                </a> */}
               </div>
             </div>
 
@@ -53,11 +53,11 @@ export default function Advertising() {
               <div className="ad-info">
                 <h3 className="item-price"> {order.price} تومان </h3>
                 <h4 className="item-title">
-                  <a href="#">{order.title}</a>
+                  <Link to={`/details/:id`}>{order.title}</Link>
                 </h4>
                 <div className="item-cat">
                   <span>
-                    <a href="./details.html">{order.category_id}</a>
+                    {order.category_id}
                   </span>{" "}
                   /
                   {/* <span>
@@ -68,15 +68,15 @@ export default function Advertising() {
               <div className="ad-meta">
                 <div className="meta-content">
                   <span className="dated">
-                    <a href="#">7 مهر 1399 - 10:10 بعدازظهر </a>
+                    <a>7 مهر 1399 - 10:10 بعدازظهر </a>
                   </span>
-                  <a href="#" className="tag">
+                  <a className="tag">
                     <i className="fa fa-tags"></i>دسته دوم
                   </a>
                 </div>
                 <div className="user-option pull-right">
                   <a
-                    href="#"
+                    // href="#"
                     data-toggle="tooltip"
                     data-placement="top"
                     title="ایران- تهران"
@@ -85,7 +85,7 @@ export default function Advertising() {
                   </a>
                   <a
                     className="online"
-                    href="#"
+                    // href="#"
                     data-toggle="tooltip"
                     data-placement="top"
                     title="فروشنده"
@@ -95,7 +95,7 @@ export default function Advertising() {
                 </div>
               </div>
             </div>
-          </div>
+          </>
         );
       })}
     </div>

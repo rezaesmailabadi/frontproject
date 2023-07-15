@@ -29,7 +29,7 @@ export default function Header() {
                                     خانه
                                 </NavLink>
                             </li>
-                            <li>
+                            {/* <li>
                                 <NavLink
                                     to="/categories"
                                     className={({ isActive }) =>
@@ -38,7 +38,7 @@ export default function Header() {
                                 >
                                     دسته‌بندی
                                 </NavLink>
-                            </li>
+                            </li> */}
                             <li>
                                 <NavLink
                                     to="/advertisements"
@@ -49,7 +49,37 @@ export default function Header() {
                                     آگهی ها
                                 </NavLink>
                             </li>
-                            <li className="dropdown">
+                            <li>
+                                <NavLink
+                                    to="/support"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                >
+                                    پشتیبانی
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/about-us"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                >
+                                    درباره ما
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/contact-us"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                >
+                                    ارتباط با ما
+                                </NavLink>
+                            </li>
+                            {/* <li className="dropdown">
                                 <a href='' className="dropdown-toggle" data-toggle="dropdown">
                                     سایر<span className="caret"></span>
                                 </a>
@@ -85,7 +115,7 @@ export default function Header() {
                                         </NavLink>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 

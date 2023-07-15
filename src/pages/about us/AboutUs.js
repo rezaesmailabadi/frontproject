@@ -1,67 +1,67 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
 import AboutUsCarouselItem from '../../components/AboutUsCarouselItem'
 import TeamMember from '../../components/TeamMember'
 
 export default function AboutUs() {
     return (
-        <section id="main" class="clearfix about-us page">
-            <div class="container">
+        <section id="main" className="clearfix about-us page">
+            <div className="container">
 
-                <div class="breadcrumb-section">
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">خانه</a></li>
+                <div className="breadcrumb-section">
+                    <ol className="breadcrumb">
+                        <li><Link to="/">خانه</Link></li>
                         <li>درباره ما</li>
                     </ol>
-                    <h2 class="title">درباره ما</h2>
+                    <h2 className="title">درباره ما</h2>
                 </div>
 
-                <div class="section about">
-                    <div class="about-info">
-                        <div class="row">
+                <div className="section about">
+                    <div className="about-info">
+                        <div className="row">
 
-                            <div class="col-lg-6">
-                                <div class="about-us-images">
-                                    <img src="images/about-us/1.jpg" alt="About us Image" class="img-fluid"/>
+                            <div className="col-lg-6">
+                                <div className="about-us-images">
+                                    <img src="images/about-us/1.jpg" alt="About us Image" className="img-fluid" />
                                 </div>
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="about-text">
+                            <div className="col-lg-6">
+                                <div className="about-text">
                                     <h3>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</h3>
 
-                                    <div class="description-paragraph">
+                                    <div className="description-paragraph">
                                         <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
                                     </div>
 
 
-                                    <div class="description-paragraph"><p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p></div>
+                                    <div className="description-paragraph"><p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="approach">
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <div class="our-approach">
+                    <div className="approach">
+                        <div className="row">
+                            <div className="col-md-4 text-center">
+                                <div className="our-approach">
                                     <h3>سابقه</h3>
                                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
                                 </div>
                             </div>
 
 
-                            <div class="col-md-4 text-center">
-                                <div class="our-approach">
+                            <div className="col-md-4 text-center">
+                                <div className="our-approach">
                                     <h3>هدف</h3>
                                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
                                 </div>
                             </div>
 
 
-                            <div class="col-md-4 text-center">
-                                <div class="our-approach">
+                            <div className="col-md-4 text-center">
+                                <div className="our-approach">
                                     <h3>روش کار</h3>
                                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
                                 </div>
@@ -69,9 +69,9 @@ export default function AboutUs() {
                         </div>
                     </div>
 
-                    <div class="team-section">
+                    <div className="team-section">
                         <h3>اعضای تیم</h3>
-                        <div class="team-members">
+                        <div className="team-members">
                             <TeamMember />
                             <TeamMember />
                             <TeamMember />
@@ -81,8 +81,8 @@ export default function AboutUs() {
                     </div>
                 </div>
 
-                <div class="section testimonials text-center">
-                    <div class="testimonial-carousel">
+                <div className="section testimonials text-center">
+                    <div className="testimonial-carousel">
                         <AboutUsCarouselItem />
                     </div>
                 </div>

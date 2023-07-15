@@ -1,41 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "../../../redux/category/categoryActions";
 
 export default function Categories() {
-  const [categoryData, setCategoryData] = useState([]);
+
+  const { categories } = useSelector(state => state.categoryState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    const fetchData = () => {
+      if (!categories) {
+        dispatch(getCategory());
+      }
+    }
+
     fetchData();
+
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const result = await axios("http://127.0.0.1:8000/api/Categories");
-      console.log(result.data.results);
-      setCategoryData(result.data.results);
-    } catch (err) {
-      console.log("somthing Wrong");
-    }
-  };
+
   return (
-    <div>
-      {categoryData.map((category) => {
+    <>
+      {categories?.map((category) => {
         return (
-          <li className="category-item">
-            <a href="categories.html">
-              <div className="category-icon">
-                <img
-                  src="images/icon/1.png"
-                  alt="images"
-                  className="img-fluid"
-                />
-              </div>
-              <Link to={`/categories/${category.id}`}>{category.name}</Link>
-            </a>
+          <li key={category.id} className="category-item">
+            <div className="category-icon">
+              <img
+                src={category.image}
+                alt="images"
+                className="img-fluid"
+              />
+            </div>
+            <Link to={`/advertisements/${category.id}`}>{category.name}</Link>
           </li>
         );
       })}
-    </div>
+    </>
   );
 }

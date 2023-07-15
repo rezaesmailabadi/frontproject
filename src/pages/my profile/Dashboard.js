@@ -1,43 +1,43 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 
 export default function Dashboard() {
 
     const location = useLocation();
 
     return (
-        <section id="main" class="clearfix myads-page">
-            <div class="container">
+        <section id="main" className="clearfix myads-page">
+            <div className="container">
 
-                <div class="breadcrumb-section">
+                <div className="breadcrumb-section">
 
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">خانه</a></li>
+                    <ol className="breadcrumb">
+                        <li><Link to="/">خانه</Link></li>
                         <li>افزودن آگهی</li>
                     </ol>
-                    <h2 class="title">پروفایل من</h2>
+                    <h2 className="title">پروفایل من</h2>
                 </div>
 
-                <div class="ad-profile section">
-                    <div class="user-profile">
-                        <div class="user-images">
-                            <img src="/images/user.jpg" alt="User Images" class="img-fluid" />
+                <div className="ad-profile section">
+                    <div className="user-profile">
+                        <div className="user-images">
+                            <img src="/images/user.jpg" alt="User Images" className="img-fluid" />
                         </div>
-                        <div class="user">
+                        <div className="user">
                             <h2>سلام, <a href="#">ایمان عزیز</a></h2>
                             <h5>آخرین ورود شما سه‌شنبه ، 21 اردیبهشت 1399</h5>
                         </div>
 
-                        <div class="favorites-user">
-                            <div class="my-ads">
-                                <a href="my-ads.html">23<small>آگهی‌های من</small></a>
+                        <div className="favorites-user">
+                            <div className="my-ads">
+                                <Link to="/dashboard/my-ads">23<small>آگهی‌های من</small></Link>
                             </div>
-                            <div class="favorites">
+                            <div className="favorites">
                                 <a href="#">18<small>علاقه‌مندیها</small></a>
                             </div>
                         </div>
                     </div>
 
-                    <ul class="user-menu">
+                    <ul className="user-menu">
 
                         <li>
                             <NavLink
@@ -103,18 +103,18 @@ export default function Dashboard() {
                     </ul>
                 </div>
 
-                <div class="profile">
-                    <div class="row">
+                <div className="profile">
+                    <div className="row">
                         <Outlet />
 
-                        <div class="col-md-4 text-center">
-                            <div class="recommended-cta">
-                                <div class="cta">
+                        <div className="col-md-4 text-center">
+                            <div className="recommended-cta">
+                                <div className="cta">
 
-                                    <div class="single-cta">
+                                    <div className="single-cta">
 
-                                        <div class="cta-icon icon-secure">
-                                            <img src="/images/icon/13.png" alt="Icon" class="img-fluid" />
+                                        <div className="cta-icon icon-secure">
+                                            <img src="/images/icon/13.png" alt="Icon" className="img-fluid" />
                                         </div>
 
                                         <h4>خرید و فروش امن</h4>
@@ -122,10 +122,10 @@ export default function Dashboard() {
                                     </div>
 
 
-                                    <div class="single-cta">
+                                    <div className="single-cta">
 
-                                        <div class="cta-icon icon-support">
-                                            <img src="/images/icon/14.png" alt="Icon" class="img-fluid" />
+                                        <div className="cta-icon icon-support">
+                                            <img src="/images/icon/14.png" alt="Icon" className="img-fluid" />
                                         </div>
 
                                         <h4>پشتیبانی 24/7</h4>
@@ -134,10 +134,10 @@ export default function Dashboard() {
 
 
 
-                                    <div class="single-cta">
+                                    <div className="single-cta">
 
-                                        <div class="cta-icon icon-trading">
-                                            <img src="/images/icon/15.png" alt="Icon" class="img-fluid" />
+                                        <div className="cta-icon icon-trading">
+                                            <img src="/images/icon/15.png" alt="Icon" className="img-fluid" />
                                         </div>
 
                                         <h4>خرید و فروش آسان</h4>
@@ -145,9 +145,9 @@ export default function Dashboard() {
                                     </div>
 
 
-                                    <div class="single-cta">
+                                    <div className="single-cta">
                                         <h5>کمک نیاز دارید؟</h5>
-                                        <p><span>با ما تماس بگیرید</span><a href="tellto:08048100000"> 08048100000</a></p>
+                                        <p><span>با ما تماس بگیرید</span><a href="#"> 08048100000</a></p>
                                     </div>
                                 </div>
                             </div>

@@ -29,7 +29,7 @@ export default function Main() {
                     <a href="#">ماشین و وسایل نقلیه</a>
                   </li>
                   <li>
-                    <a href="./details.html">دستگاه‌های دیجیتال و گجت‌ها</a>
+                    <a href="#">دستگاه‌های دیجیتال و گجت‌ها</a>
                   </li>
                   <li>
                     <a href="#">املاک</a>
@@ -87,6 +87,11 @@ export default function Main() {
                   <div className="col-sm-12">
                     <div className="section-title featured-top">
                       <h4>جدیدترین آگهی‌ها</h4>
+                      <span>
+                        <i className="fa fa-angle-right" aria-hidden="true"></i>
+                        <i className="fa fa-angle-left" aria-hidden="true"></i>
+
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -112,19 +117,19 @@ export default function Main() {
                     <li role="presentation">
                       <a
                         className="active"
-                        href="#recent-ads"
+                        href="#"
                         data-toggle="tab"
                       >
                         آخرین آگهی‌ها
                       </a>
                     </li>
                     <li role="presentation">
-                      <a href="#popular" data-toggle="tab">
+                      <a href="#" data-toggle="tab">
                         محبوبترین آگهی‌ها
                       </a>
                     </li>
                     <li role="presentation">
-                      <a href="#hot-ads" data-toggle="tab">
+                      <a href="#" data-toggle="tab">
                         پربازدیدترین آگهی‌ها
                       </a>
                     </li>

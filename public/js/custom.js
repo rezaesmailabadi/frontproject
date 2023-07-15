@@ -200,8 +200,6 @@ jQuery(function ($) {
 
     (function() {
 
-        console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-
         $("#featured-slider").owlCarousel({
             rtl:true,
             items:3,

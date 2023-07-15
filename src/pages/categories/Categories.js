@@ -1,31 +1,56 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import Ads from "../../components/Ads";
 import Advertising from "../../components/Advertising";
 import SomthingSell from "../../components/SomthingSell";
+import { getCategory } from "../../redux/category/categoryActions";
 
 export default function Categories() {
+
+  const { id } = useParams();
+
+  const { categories } = useSelector(state => state.categoryState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = () => {
+      if (!categories) {
+        dispatch(getCategory());
+      }
+    }
+    // if (categories.find(category => category.id === id)) {
+      
+    // }
+
+    fetchData();
+    console.log("message")
+
+  }, [categories]);
+
   return (
     <>
-      <section id="main" class="clearfix category-page main-categories">
-        <div class="container">
-          <div class="breadcrumb-section">
-            <ol class="breadcrumb">
+      <section id="main" className="clearfix category-page main-categories">
+        <div className="container">
+          <div className="breadcrumb-section">
+            <ol className="breadcrumb">
               <li>
-                <a href="index.html">خانه</a>
+                <Link to="/">خانه</Link>
               </li>
               <li>کالاهای دیجیتال و گجت</li>
             </ol>
-            <h2 class="title">گوشی موبایل</h2>
+            <h2 className="title">گوشی موبایل</h2>
           </div>
-          <div class="banner">
-            <div class="banner-form banner-form-full">
+          <div className="banner">
+            <div className="banner-form banner-form-full">
               <form action="#">
-                <div class="dropdown category-dropdown">
+                <div className="dropdown category-dropdown">
                   <a data-toggle="dropdown" href="#">
-                    <span class="change-text">انتخاب دسته‌بندی</span>{" "}
-                    <i class="fa fa-angle-down"></i>
+                    <span className="change-text">انتخاب دسته‌بندی</span>{" "}
+                    <i className="fa fa-angle-down"></i>
                   </a>
-                  <ul class="dropdown-menu category-change">
+                  <ul className="dropdown-menu category-change">
                     <li>
                       <a href="#">مد و زیبایی</a>
                     </li>
@@ -33,7 +58,7 @@ export default function Categories() {
                       <a href="#">ماشین و وسایل نقلیه</a>
                     </li>
                     <li>
-                      <a href="./details.html">دستگاه‌های دیجیتال و گجت‌ها</a>
+                      <a href="#">دستگاه‌های دیجیتال و گجت‌ها</a>
                     </li>
                     <li>
                       <a href="#">املاک</a>
@@ -44,12 +69,12 @@ export default function Categories() {
                   </ul>
                 </div>
 
-                <div class="dropdown category-dropdown language-dropdown ">
+                <div className="dropdown category-dropdown language-dropdown ">
                   <a data-toggle="dropdown" href="#">
-                    <span class="change-text">ایران</span>{" "}
-                    <i class="fa fa-angle-down"></i>
+                    <span className="change-text">ایران</span>{" "}
+                    <i className="fa fa-angle-down"></i>
                   </a>
-                  <ul class="dropdown-menu  language-change">
+                  <ul className="dropdown-menu  language-change">
                     <li>
                       <a href="#">ایران</a>
                     </li>
@@ -67,22 +92,22 @@ export default function Categories() {
 
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="عبارت مورد نظر خود را تایپ کنید"
                 />
-                <button type="submit" class="form-control" value="Search">
+                <button type="submit" className="form-control" value="Search">
                   جستجو
                 </button>
               </form>
             </div>
           </div>
 
-          <div class="category-info">
-            <div class="row">
-              <div class="col-lg-3 col-md-4">
-                <div class="category-accordion tr-accordion" id="accordion">
-                  <div class="card">
-                    <div class="card-header" id="heading-1">
+          <div className="category-info">
+            <div className="row">
+              <div className="col-lg-3 col-md-4">
+                <div className="category-accordion tr-accordion" id="accordion">
+                  <div className="card">
+                    <div className="card-header" id="heading-1">
                       <button
                         data-toggle="collapse"
                         data-target="#collapse-1"
@@ -95,99 +120,32 @@ export default function Categories() {
 
                     <div
                       id="collapse-1"
-                      class="collapse show"
+                      className="collapse show"
                       aria-labelledby="heading-1"
                       data-parent="#accordion"
                     >
-                      <div class="card-body">
+                      <div className="card-body">
                         <ul>
-                          <li>
-                            <a href="categories.html">
-                              <i class="icofont icofont-laptop-alt"></i>کالاهای
-                              دیجیتال و گجت<span>(1029)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-police-car-alt-2"></i>
-                              ماشین و وسایل نقلیه<span>(1228)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-building-alt"></i>املاک
-                              <span>(178)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-ui-home"></i>خانه و
-                              دکوراسیون<span>(7163)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-animal-dog"></i>حیوانات
-                              خانگی <span>(8709)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-nurse"></i>سلامت و
-                              زیبایی<span>(3129)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-hockey"></i>ورزشی و
-                              تفریحی<span>(2019)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-burger"></i>غذا و خوراکی
-                              <span>(323)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-girl-alt"></i>بچگانه
-                              <span>(425)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-gift"></i>کادو و هدیه
-                              <span>(3223)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-architecture-alt"></i>
-                              محصولات دفتر<span>(3283)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-animal-cat-alt-1"></i>
-                              کار دستی و هنری<span>(3221)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i class="icofont icofont-abc"></i>متفرقه
-                              <span>(3129)</span>
-                            </a>
-                          </li>
+                          {
+                            categories?.map(category =>
+                              <li>
+                                <Link to={`/categories/${category.id}`}>
+                                  <i className="icofont icofont-laptop-alt"></i>
+                                  <span style={{color: id === category.id ? "red" : "#000"}}>{category.name}</span>
+                                  <span>(1029)</span>
+                                </Link>
+                              </li>
+                            )
+                          }
                         </ul>
                       </div>
                     </div>
                   </div>
 
-                  <div class="card">
-                    <div class="card-header" id="heading-2">
+                  <div className="card">
+                    <div className="card-header" id="heading-2">
                       <button
-                        class="collapsed"
+                        className="collapsed"
                         data-toggle="collapse"
                         data-target="#collapse-2"
                         aria-expanded="false"
@@ -198,11 +156,11 @@ export default function Categories() {
                     </div>
                     <div
                       id="collapse-2"
-                      class="collapse"
+                      className="collapse"
                       aria-labelledby="heading-2"
                       data-parent="#accordion"
                     >
-                      <div class="card-body">
+                      <div className="card-body">
                         <label for="new">
                           <input type="checkbox" name="new" id="new" />
                           جدید
@@ -215,10 +173,10 @@ export default function Categories() {
                     </div>
                   </div>
 
-                  <div class="card">
-                    <div class="card-header" id="heading-3">
+                  <div className="card">
+                    <div className="card-header" id="heading-3">
                       <button
-                        class="collapsed"
+                        className="collapsed"
                         data-toggle="collapse"
                         data-target="#collapse-3"
                         aria-expanded="false"
@@ -229,22 +187,22 @@ export default function Categories() {
                     </div>
                     <div
                       id="collapse-3"
-                      class="collapse"
+                      className="collapse"
                       aria-labelledby="heading-3"
                       data-parent="#accordion"
                     >
-                      <div class="card-body">
-                        <div class="price-range">
-                          <div class="price">
+                      <div className="card-body">
+                        <div className="price-range">
+                          <div className="price">
                             <span>
                               100 تومان - <strong>700 تومان</strong>
                             </span>
-                            <div class="dropdown category-dropdown pull-right">
+                            <div className="dropdown category-dropdown pull-right">
                               <a data-toggle="dropdown" href="#">
-                                <span class="change-text">تومان</span>
-                                <i class="fa fa-caret-square-o-down"></i>
+                                <span className="change-text">تومان</span>
+                                <i className="fa fa-caret-square-o-down"></i>
                               </a>
-                              <ul class="dropdown-menu category-change">
+                              <ul className="dropdown-menu category-change">
                                 <li>
                                   <a href="#"> 10تومان </a>
                                 </li>
@@ -278,10 +236,10 @@ export default function Categories() {
                     </div>
                   </div>
 
-                  <div class="card">
-                    <div class="card-header" id="heading-4">
+                  <div className="card">
+                    <div className="card-header" id="heading-4">
                       <button
-                        class="collapsed"
+                        className="collapsed"
                         data-toggle="collapse"
                         data-target="#collapse-4"
                         aria-expanded="false"
@@ -292,11 +250,11 @@ export default function Categories() {
                     </div>
                     <div
                       id="collapse-4"
-                      class="collapse"
+                      className="collapse"
                       aria-labelledby="heading-4"
                       data-parent="#accordion"
                     >
-                      <div class="card-body">
+                      <div className="card-body">
                         <label for="شخصی">
                           <input type="checkbox" name="شخصی" id="شخصی" /> شخصی
                         </label>
@@ -324,10 +282,10 @@ export default function Categories() {
                     </div>
                   </div>
 
-                  <div class="card">
-                    <div class="card-header" id="heading-5">
+                  <div className="card">
+                    <div className="card-header" id="heading-5">
                       <button
-                        class="collapsed"
+                        className="collapsed"
                         data-toggle="collapse"
                         data-target="#collapse-5"
                         aria-expanded="false"
@@ -338,15 +296,15 @@ export default function Categories() {
                     </div>
                     <div
                       id="collapse-5"
-                      class="collapse"
+                      className="collapse"
                       aria-labelledby="heading-5"
                       data-parent="#accordion"
                     >
-                      <div class="card-body">
+                      <div className="card-body">
                         <input
                           type="text"
                           placeholder="جستجو برند "
-                          class="form-control"
+                          className="form-control"
                         />
                         <label for="apple">
                           <input type="checkbox" name="apple" id="apple" /> اپل
@@ -374,7 +332,7 @@ export default function Categories() {
                           <input type="checkbox" name="samsung" id="samsung" />{" "}
                           شیائومی
                         </label>
-                        <span class="border"></span>
+                        <span className="border"></span>
                         <label for="acer">
                           <input type="checkbox" name="acer" id="acer" /> سونی
                         </label>
@@ -424,18 +382,18 @@ export default function Categories() {
                 </div>
               </div>
 
-              <div class="col-md-8 col-lg-7">
-                <div class="section recommended-ads">
-                  <div class="featured-top">
+              <div className="col-md-8 col-lg-7">
+                <div className="section recommended-ads">
+                  <div className="featured-top">
                     <h4>توصیه شده برای شما</h4>
-                    <div class="dropdown pull-right">
-                      <div class="dropdown category-dropdown">
+                    <div className="dropdown pull-right">
+                      <div className="dropdown category-dropdown">
                         <h5>چینش:</h5>
                         <a data-toggle="dropdown" href="#">
-                          <span class="change-text">محبوبیت</span>
-                          <i class="fa fa-caret-square-o-down"></i>
+                          <span className="change-text">محبوبیت</span>
+                          <i className="fa fa-caret-square-o-down"></i>
                         </a>
-                        <ul class="dropdown-menu category-change">
+                        <ul className="dropdown-menu category-change">
                           <li>
                             <a href="#">جدیدترین</a>
                           </li>
@@ -455,28 +413,28 @@ export default function Categories() {
 
                   <Advertising />
 
-                  <div class="ad-section text-center">
+                  <div className="ad-section text-center">
                     <a href="#">
                       <img
                         src="images/ads/3.jpg"
                         alt="Image"
-                        class="img-fluid"
+                        className="img-fluid"
                       />
                     </a>
                   </div>
 
                   {/* <Advertising /> */}
-                  <div class="text-center">
-                    <ul class="pagination ">
+                  <div className="text-center">
+                    <ul className="pagination ">
                       <li>
                         <a href="#">
-                          <i class="fa fa-chevron-right"></i>
+                          <i className="fa fa-chevron-right"></i>
                         </a>
                       </li>
                       <li>
                         <a href="#">1</a>
                       </li>
-                      <li class="active">
+                      <li className="active">
                         <a href="#">2</a>
                       </li>
                       <li>
@@ -502,7 +460,7 @@ export default function Categories() {
                       </li>
                       <li>
                         <a href="#">
-                          <i class="fa fa-chevron-left"></i>
+                          <i className="fa fa-chevron-left"></i>
                         </a>
                       </li>
                     </ul>

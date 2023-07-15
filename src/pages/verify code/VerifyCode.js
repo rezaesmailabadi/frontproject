@@ -19,28 +19,28 @@ export default function VerifyCode() {
     }
 
     return (
-        <section id="main" class="clearfix user-page">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                        <div class="user-account">
+        <section id="main" className="clearfix user-page">
+            <div className="container">
+                <div className="row text-center">
+                    <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                        <div className="user-account">
                             <h2>اعتبار سنجی</h2>
                             <h4 className="text-sm">کد برای {email} ارسال شد</h4>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <input
                                     value={value}
                                     onChange={e => setValue(e.target.value)}
                                     type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     placeholder="لطفا کد ارسال شده را وارد نمایید"
                                 />
                                 {invalidValue && <span className="text-error">لطفا به درستی وارد کنید</span>}
                             </div>
                             <p className="flex-center">
                                 <NavLink to="/login" className="text-gray ml-3" state={email}>اصلاح ایمیل</NavLink>
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                <i className="fa fa-arrow-left" aria-hidden="true"></i>
                             </p>
-                            <button class="btn" onClick={clickHandler}>ورود</button>
+                            <button className="btn" onClick={clickHandler}>ورود</button>
                         </div>
                     </div>
                 </div>
