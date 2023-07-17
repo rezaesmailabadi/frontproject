@@ -187,9 +187,9 @@
 	.featureds .ad-info {
 		min-height: inherit;
 	}
-	.select-price input[type="text"] {
+	/* .select-price input[type="text"] {
 		margin: 0 10px;
-	}	
+	}	 */
 	.about-us-images {
 		margin-bottom: 20px;
 	}	
@@ -764,7 +764,7 @@
 		margin-left:-11px;
 	}
 	.select-price input[type="text"]{
-		max-width:190px;
+		/* max-width:190px; */
 	}
 	.checkbox label {
 		margin-right:20px;

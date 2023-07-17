@@ -141,7 +141,7 @@ export default function Header() {
                             </li> */}
             </ul>
 
-            <NavLink to="/add-advertising-details" className="btn">
+            <NavLink to="/add-advertising" className="btn">
               افزودن آگهی شما
             </NavLink>
           </div>

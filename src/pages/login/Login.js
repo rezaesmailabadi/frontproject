@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { emailValidation, phoneValidation } from '../../helper/validation';
+import Loader from '../../components/Loader';
+import { emailValidation } from '../../helper/validation';
 
 export default function Login() {
 
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    const [dataValue, setDataValue] = useState({
+    const [loading, setLoading] = useState(false);
+    const [email, setDataValue] = useState({
         email: state || "",
     });
     const [invalidValue, setInvalidValue] = useState(false);
@@ -18,7 +20,7 @@ export default function Login() {
         let value = e.target.value
 
         setDataValue({
-            ...dataValue,
+            ...email,
             [e.target.name]: value,
         });
 
@@ -32,14 +34,23 @@ export default function Login() {
     const signInHandler = (e) => {
         e.preventDefault();
 
-        if (invalidValue || !dataValue.email.length) {
+        if (invalidValue || !email.email.trim().length) {
             setInvalidValue(true);
             return;
         }
 
-        axios.post("http://127.0.0.1:8000/api/login-register", dataValue)
-            .then(res => { console.log(res); navigate('/verification', { state: { code: 12, email: dataValue.email } }) })
-            .catch(err => { console.log(err); navigate('/verification', { state: { code: 12, email: dataValue.email } }) })
+        setLoading(true);
+        axios.post("http://127.0.0.1:8000/api/login-register", email)
+            .then(res => {
+                setLoading(false);
+                console.log(res.data.results);
+                navigate('/verification', { state: { code: res.data.results, email: email.email } });
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err);
+                alert("Please try again !!!");
+            })
     };
 
     return (
@@ -52,7 +63,7 @@ export default function Login() {
                             <h4>سلام !</h4>
                             <div className="form-group">
                                 <input
-                                    value={dataValue.email}
+                                    value={email.email}
                                     onChange={(e) => changeUserFieldHandler(e)}
                                     name="email"
                                     type="text"
@@ -61,7 +72,12 @@ export default function Login() {
                                 />
                                 {invalidValue && <span className="text-error">لطفا به درستی وارد کنید</span>}
                             </div>
-                            <button className="btn" onClick={signInHandler}>ورود</button>
+                            {
+                                loading ? <Loader /> :
+                                    <button className="btn" disabled={loading} onClick={signInHandler}>
+                                        ورود
+                                    </button>
+                            }
                         </div>
                     </div>
                 </div>

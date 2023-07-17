@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
@@ -21,25 +20,41 @@ export default function VerifyCode() {
     }
   };
 
-  const checkverifycode = async () => {
-    try {
-      const result = await axios
-        .get("http://127.0.0.1:8000/api/login-confirm/+value", value)
-        .then((res) => {
-          console.log(res);
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log(err);
-          navigate("/verification");
-        });
+  // useEffect(() => {
+  //   const checkverifycode = () => {
+  //     axios.post(`http://127.0.0.1:8000/api/login-confirm/${value}`)
+  //       .then((res) => {
+  //         console.log(res);
+  //         navigate("/");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         navigate("/verification");
+  //       });
+  //   };
 
-      // console.log(result.data.users);
-      // setValue(result.data.users);
-    } catch (err) {
-      console.log("Something Wrong");
-    }
-  };
+  //   checkverifycode()
+  // }, [])
+
+  // const checkverifycode = async () => {
+  //   try {
+  //     const result = await axios
+  //       .get("http://127.0.0.1:8000/api/login-confirm/+value", value)
+  //       .then((res) => {
+  //         console.log(res);
+  //         navigate("/");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         navigate("/verification");
+  //       });
+
+  //     // console.log(result.data.users);
+  //     // setValue(result.data.users);
+  //   } catch (err) {
+  //     console.log("Something Wrong");
+  //   }
+  // };
 
   return (
     <section id="main" className="clearfix user-page">
@@ -67,7 +82,7 @@ export default function VerifyCode() {
                 </NavLink>
                 <i className="fa fa-arrow-left" aria-hidden="true"></i>
               </p>
-              <button className="btn" onClick={checkverifycode}>
+              <button className="btn" onClick={clickHandler}>
                 ورود
               </button>
             </div>
