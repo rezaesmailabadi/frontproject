@@ -2284,6 +2284,24 @@ a.verified i {
 
 .upload-section {
 	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+}
+
+.upload-section img{
+	object-fit: cover;
+	opacity: .5;
+}
+
+.upload-section > div{
+	position: relative;
+	width: 33%;
+}
+
+.upload-section > div > label{
+	position: absolute;
+	right: 0;
+	width: 100%;
 }
 
 .add-image h5 {
@@ -2312,14 +2330,16 @@ a.verified i {
 }
 
 .add-image label.upload-image {
-	width: 20%;
-	height: 75px;
+	width: 100% !important;
+	height: 100px;
 	border: 1px solid #e3e3e3;
 	border-radius: 4px;
-	position: relative;
+	/* position: relative; */
 	margin-bottom: 0;
-	margin-left: 20px;
+	/* margin-left: 20px; */
 	cursor: pointer;
+	z-index: 9999;
+	background: transparent;
 }
 
 .add-image label.upload-image:last-child {
@@ -2354,9 +2374,10 @@ a.verified i {
 }
 
 .select-price input[type="text"] {
-	display: inline-block;
-	width: initial;
-	margin: 0 15px;
+	width: 100%;
+	/* display: inline-block; */
+	/* width: initial; */
+	/* margin: 0 15px; */
 }
 
 .postdetails .select-price {
@@ -2573,7 +2594,15 @@ a.verified i {
 }
 
 .post-option .nav-tabs li {
-	padding: 0;
+	padding: 12px 15px;
+	color: #000;
+	margin-left: 1px;
+	border-bottom: .5px solid #eee;
+	cursor: pointer;
+}
+
+.post-option .nav-tabs li:hover{
+	color: #e73243;
 }
 
 .post-option h4 {
@@ -2590,7 +2619,7 @@ a.verified i {
 	padding: 15px 0;
 }
 
-.select-category li:before {
+/* .select-category li:before {
 	position: absolute;
 	top: 50%;
 	left: 0;
@@ -2601,7 +2630,7 @@ a.verified i {
 	opacity: 0;
 	cursor: pointer;
 	margin-top: -22px;
-}
+} */
 
 .select-category li.active:before, .select-category li:hover:before {
 	opacity: 1;
@@ -4227,7 +4256,7 @@ input, select, a, .transition, .footer-widget input, .favorites-user small, .fee
 	text-align: center;
 	display: inline-block;
 	margin-left: 0;
-	margin-right: 45px;
+	/* margin-right: 45px; */
 }
 
 .social {

@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertising from '../../components/Advertising'
+import Loader from '../../components/Loader';
 import SomthingSell from '../../components/SomthingSell'
 import { getCategory } from '../../redux/category/categoryActions';
 
@@ -13,7 +13,7 @@ export default function Advertisements() {
 
     const { id } = useParams();
 
-    const { categories } = useSelector(state => state.categoryState);
+    const { categories, loading } = useSelector(state => state.categoryState);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function Advertisements() {
             if (category) {
                 setSelectedCategory(category)
             } else navigate("/error")
-        }else setSelectedCategory(null)
+        } else setSelectedCategory(null)
 
 
     }, [categories, id]);
@@ -97,16 +97,27 @@ export default function Advertisements() {
                                         <div id="collapse-1" className="collapse show" aria-labelledby="heading-1" data-parent="#accordion">
                                             <div className="card-body">
                                                 <ul>
+
                                                     {
-                                                        categories?.map(category =>
-                                                            <li key={category.id}>
-                                                                <Link to={`/advertisements/${category.id}`}>
-                                                                    <i className="icofont icofont-laptop-alt"></i>
-                                                                    <span style={{ color: id == category.id ? "red" : "#000" }}>{category.name}</span>
-                                                                    <span>(1029)</span>
-                                                                </Link>
-                                                            </li>
-                                                        )
+                                                        loading ? <Loader /> :
+                                                            <>
+                                                                <li>
+                                                                    <Link to="/advertisements">
+                                                                        <i className="icofont icofont-laptop-alt"></i>
+                                                                        <span style={{ color: id ? "#000" : "red" }} onClick={() => setSelectedCategory(null)}>All</span>
+                                                                        <span>(1029)</span>
+                                                                    </Link>
+                                                                </li>
+                                                                {categories?.map(category =>
+                                                                    <li key={category.id}>
+                                                                        <Link to={`/advertisements/${category.id}`}>
+                                                                            <i className="icofont icofont-laptop-alt"></i>
+                                                                            <span style={{ color: id == category.id ? "red" : "#000" }}>{category.name}</span>
+                                                                            <span>(1029)</span>
+                                                                        </Link>
+                                                                    </li>
+                                                                )}
+                                                            </>
                                                     }
                                                 </ul>
                                             </div>
@@ -212,10 +223,10 @@ export default function Advertisements() {
 
                                     <div className="featured-top">
                                         <h4>
-                                            {selectedCategory ? 
-                                            "آگهی های مرتبط با "+selectedCategory.name
-                                            : "همه آگهی ها"
-                                        }
+                                            {selectedCategory ?
+                                                "آگهی های مرتبط با " + selectedCategory.name
+                                                : "همه آگهی ها"
+                                            }
                                         </h4>
                                         <div className="dropdown pull-right">
 
