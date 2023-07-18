@@ -5,20 +5,19 @@ import { Link } from "react-router-dom";
 import { getCategory } from "../../redux/category/categoryActions";
 
 export default function AddAdvertisingDetails() {
-
-  const { categories, loading } = useSelector(state => state.categoryState);
+  const { categories, loading } = useSelector((state) => state.categoryState);
   const dispatch = useDispatch();
 
   const img1 = useRef(null);
   const img2 = useRef(null);
   const img3 = useRef(null);
 
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [invalidData, setInvalidData] = useState(false);
   const [userOrderUnrequired, setUserOrderUnrequired] = useState({
     images: [],
     order_category: null,
-  })
+  });
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
     introduction: "",
@@ -27,14 +26,16 @@ export default function AddAdvertisingDetails() {
   });
 
   function readURL(event, ref) {
-
     let input = event.target;
 
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
         ref.current.src = e.target.result;
-        setUserOrderUnrequired({ ...userOrderUnrequired, images: [...userOrderUnrequired.images, e.target.result] });
+        setUserOrderUnrequired({
+          ...userOrderUnrequired,
+          images: [...userOrderUnrequired.images, e.target.result],
+        });
       };
       reader.readAsDataURL(input.files[0]);
     }
@@ -49,22 +50,25 @@ export default function AddAdvertisingDetails() {
 
   const onSubmitChange = async (e) => {
     e.preventDefault();
-    if (Object.values(userOrderRequired).find(value => !value?.trim()?.length)?.length === 0 ||
-      Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price) ||
+    if (
+      Object.values(userOrderRequired).find((value) => !value?.trim()?.length)
+        ?.length === 0 ||
+      Number(userOrderRequired.max_price) <
+        Number(userOrderRequired.min_price) ||
       !selectedCategory
     ) {
-      console.log(userOrderUnrequired.order_category)
+      console.log(userOrderUnrequired.order_category);
 
       setInvalidData(true);
       return;
     }
 
-
     try {
       const obj = {
         ...userOrderRequired,
-        ...userOrderUnrequired
-      }
+        ...userOrderUnrequired,
+      };
+      console.log(obj);
 
       const responce = await axios.post(
         "http://127.0.0.1:8000/api/addorder",
@@ -81,10 +85,9 @@ export default function AddAdvertisingDetails() {
       if (!categories) {
         dispatch(getCategory());
       }
-    }
+    };
 
     fetchData();
-
   }, []);
 
   return (
@@ -117,20 +120,36 @@ export default function AddAdvertisingDetails() {
                       </label>
                       <div className="col-sm-5">
                         <div className="dropdown category-dropdown">
-                          <a data-toggle="dropdown" href="#"><span className="change-text">{selectedCategory?.name || "انتخاب دسته بندی"}</span> <i
-                            className="fa fa-angle-down"></i></a>
+                          <a data-toggle="dropdown" href="#">
+                            <span className="change-text">
+                              {selectedCategory?.name || "انتخاب دسته بندی"}
+                            </span>{" "}
+                            <i className="fa fa-angle-down"></i>
+                          </a>
                           <ul className="dropdown-menu category-change">
-                            <li onClick={() => setSelectedCategory(null)}>انتخاب دسته بندی</li>
-                            {categories?.map(category =>
+                            <li onClick={() => setSelectedCategory(null)}>
+                              انتخاب دسته بندی
+                            </li>
+                            {categories?.map((category) => (
                               <li
-                                onClick={e => { setUserOrderUnrequired({ ...userOrderUnrequired, order_category: category.id }); setSelectedCategory(category) }}
+                                onClick={(e) => {
+                                  setUserOrderUnrequired({
+                                    ...userOrderUnrequired,
+                                    order_category: category.id,
+                                  });
+                                  setSelectedCategory(category);
+                                }}
                               >
                                 {category.name}
-                              </li>)}
+                              </li>
+                            ))}
                           </ul>
                         </div>
-                        {invalidData && !selectedCategory &&
-                          <span className="text-error">لطفا یک دسته بندی مناسب انتخاب کنید.</span>}
+                        {invalidData && !selectedCategory && (
+                          <span className="text-error">
+                            لطفا یک دسته بندی مناسب انتخاب کنید.
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -147,8 +166,12 @@ export default function AddAdvertisingDetails() {
                           placeholder="من در زبان php مشکل دارم "
                           onChange={(e) => changeUserFieldHandler(e)}
                         />
-                        {invalidData && !userOrderRequired.title.trim().length &&
-                          <span className="text-error">لطفا یک عنوان مناسب انتخاب کنید.</span>}
+                        {invalidData &&
+                          !userOrderRequired.title.trim().length && (
+                            <span className="text-error">
+                              لطفا یک عنوان مناسب انتخاب کنید.
+                            </span>
+                          )}
                       </div>
                     </div>
 
@@ -231,9 +254,12 @@ export default function AddAdvertisingDetails() {
                         {invalidData &&
                           (!userOrderRequired.min_price.trim().length ||
                             !Number(userOrderRequired.min_price) ||
-                            Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price)
-                          ) &&
-                          <span className="text-error">لطفا یک قیمت مناسب انتخاب کنید.</span>}
+                            Number(userOrderRequired.max_price) <
+                              Number(userOrderRequired.min_price)) && (
+                            <span className="text-error">
+                              لطفا یک قیمت مناسب انتخاب کنید.
+                            </span>
+                          )}
                       </div>
                     </div>
 
@@ -252,9 +278,12 @@ export default function AddAdvertisingDetails() {
                         {invalidData &&
                           (!userOrderRequired.max_price.trim().length ||
                             !Number(userOrderRequired.max_price) ||
-                            Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price)
-                          ) &&
-                          <span className="text-error">لطفا یک قیمت مناسب انتخاب کنید.</span>}
+                            Number(userOrderRequired.max_price) <
+                              Number(userOrderRequired.min_price)) && (
+                            <span className="text-error">
+                              لطفا یک قیمت مناسب انتخاب کنید.
+                            </span>
+                          )}
                       </div>
                     </div>
                     <div className="row form-group item-description">
@@ -270,8 +299,12 @@ export default function AddAdvertisingDetails() {
                           rows="8"
                           onChange={(e) => changeUserFieldHandler(e)}
                         ></textarea>
-                        {invalidData && !userOrderRequired.introduction.trim().length &&
-                          <span className="text-error">لطفا توضیحات مناسب شرح دهید.</span>}
+                        {invalidData &&
+                          !userOrderRequired.introduction.trim().length && (
+                            <span className="text-error">
+                              لطفا توضیحات مناسب شرح دهید.
+                            </span>
+                          )}
                       </div>
                     </div>
                   </div>
