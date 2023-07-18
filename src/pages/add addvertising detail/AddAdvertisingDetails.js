@@ -1,12 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getCategory } from "../../redux/category/categoryActions";
 
 export default function AddAdvertisingDetails() {
-  const { categories, loading } = useSelector((state) => state.categoryState);
+
+  const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
+  console.log("cookies => ", cookies)
+
+  const { categories, loading } = useSelector(state => state.categoryState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const img1 = useRef(null);
   const img2 = useRef(null);
@@ -17,7 +23,8 @@ export default function AddAdvertisingDetails() {
   const [userOrderUnrequired, setUserOrderUnrequired] = useState({
     images: [],
     order_category: null,
-  });
+    user_id: cookies.userID,
+  })
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
     introduction: "",
@@ -50,11 +57,13 @@ export default function AddAdvertisingDetails() {
 
   const onSubmitChange = async (e) => {
     e.preventDefault();
-    if (
-      Object.values(userOrderRequired).find((value) => !value?.trim()?.length)
-        ?.length === 0 ||
-      Number(userOrderRequired.max_price) <
-        Number(userOrderRequired.min_price) ||
+
+    if (!cookies.userID) {
+      navigate("/login");
+    }
+
+    if (Object.values(userOrderRequired).find(value => !value?.trim()?.length)?.length === 0 ||
+      Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price) ||
       !selectedCategory
     ) {
       console.log(userOrderUnrequired.order_category);
@@ -69,6 +78,8 @@ export default function AddAdvertisingDetails() {
         ...userOrderUnrequired,
       };
       console.log(obj);
+
+      console.log(obj)
 
       const responce = await axios.post(
         "http://127.0.0.1:8000/api/addorder",

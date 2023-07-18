@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 export default function VerifyCode() {
+
+  const [cookies, setCookie, removeCookie] = useCookies([]);
+
   const [value, setValue] = useState("");
   const [invalidValue, setInvalidValue] = useState(false);
 
   const {
-    state: { code, email },
+    state: { code, email, userId },
   } = useLocation();
 
   const navigate = useNavigate();
@@ -14,6 +18,8 @@ export default function VerifyCode() {
   const clickHandler = () => {
     if (code === +value) {
       navigate("/");
+      console.log(userId)
+      setCookie("userID", userId)
       setInvalidValue(false);
     } else {
       setInvalidValue(true);

@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { useState } from 'react'
+import { useCookies } from 'react-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader';
 import { emailValidation } from '../../helper/validation';
 
 export default function Login() {
+
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+    console.log(cookies)
 
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -43,8 +47,8 @@ export default function Login() {
         axios.post("http://127.0.0.1:8000/api/login-register", email)
             .then(res => {
                 setLoading(false);
-                console.log(res.data.results);
-                navigate('/verification', { state: { code: res.data.results, email: email.email } });
+                console.log(res);
+                navigate('/verification', { state: { code: res.data.results, email: email.email, userId: res.data.user_id } });
             })
             .catch(err => {
                 setLoading(false);
