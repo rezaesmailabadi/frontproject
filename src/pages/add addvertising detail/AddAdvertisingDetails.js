@@ -13,6 +13,7 @@ export default function AddAdvertisingDetails() {
   const img2 = useRef(null);
   const img3 = useRef(null);
 
+  const [selectedCategory, setSelectedCategory] = useState(null)
   const [invalidData, setInvalidData] = useState(false);
   const [userOrderUnrequired, setUserOrderUnrequired] = useState({
     images: [],
@@ -50,7 +51,7 @@ export default function AddAdvertisingDetails() {
     e.preventDefault();
     if (Object.values(userOrderRequired).find(value => !value?.trim()?.length)?.length === 0 ||
       Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price) ||
-      !userOrderUnrequired.order_category.length
+      !selectedCategory
     ) {
       console.log(userOrderUnrequired.order_category)
 
@@ -58,12 +59,16 @@ export default function AddAdvertisingDetails() {
       return;
     }
 
-    console.log(Object.assign(userOrderRequired, userOrderUnrequired))
 
     try {
+      const obj = {
+        ...userOrderRequired,
+        ...userOrderUnrequired
+      }
+
       const responce = await axios.post(
         "http://127.0.0.1:8000/api/addorder",
-        Object.assign(userOrderRequired, userOrderUnrequired)
+        obj
       );
       console.log(responce);
     } catch (err) {
@@ -106,15 +111,26 @@ export default function AddAdvertisingDetails() {
                       <span className="pull-right">* فیلدهای اجباری</span>
                     </h4>
 
-                    <div className="row form-group add-title">
-                      <label className="col-sm-3 label-title">
+                    <div className="row form-group add-category">
+                      <label className="col-sm-3 label-category">
                         دسته بندی آگهی شما<span className="required">*</span>
                       </label>
-                      <div className="col-sm-9">
-                        <select onChange={e => setUserOrderUnrequired({...userOrderUnrequired, order_category: e.target.value})}>
-                          <option></option>
-                          {categories?.map(category => <option value={category.id}>{category.name}</option>)}
-                        </select>
+                      <div className="col-sm-5">
+                        <div className="dropdown category-dropdown">
+                          <a data-toggle="dropdown" href="#"><span className="change-text">{selectedCategory?.name || "انتخاب دسته بندی"}</span> <i
+                            className="fa fa-angle-down"></i></a>
+                          <ul className="dropdown-menu category-change">
+                            <li onClick={() => setSelectedCategory(null)}>انتخاب دسته بندی</li>
+                            {categories?.map(category =>
+                              <li
+                                onClick={e => { setUserOrderUnrequired({ ...userOrderUnrequired, order_category: category.id }); setSelectedCategory(category) }}
+                              >
+                                {category.name}
+                              </li>)}
+                          </ul>
+                        </div>
+                        {invalidData && !selectedCategory &&
+                          <span className="text-error">لطفا یک دسته بندی مناسب انتخاب کنید.</span>}
                       </div>
                     </div>
 

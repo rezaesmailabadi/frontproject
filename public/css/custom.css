@@ -70,6 +70,25 @@
 .loader{
     width: 100%;
     height: 100%;
-    /* background-color: rgba(128, 128, 128, 0.494); */
-    display: flex;justify-content: center;align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-category .category-dropdown{
+    border: 1px solid #e8e8e8;
+}
+
+.add-category .category-dropdown .category-change{
+    width: 100%;
+}
+
+.add-category .category-dropdown .category-change li{
+    margin: 0 10px;
+    transition: all .4s;
+    cursor: pointer;
+}
+
+.add-category .category-dropdown .category-change li:hover{
+    color: var(--mainColor);
 }

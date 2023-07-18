@@ -1660,7 +1660,7 @@ a.verified i {
 }
 
 .tr-accordion .card-body .category-change {
-	min-width: 70px;
+	min-width: 100%;
 }
 
 .category-accordion button {
