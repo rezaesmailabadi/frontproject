@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getCategory } from "../../redux/category/categoryActions";
 
 export default function AddAdvertisingDetails() {
 
-  const { state: categoryId } = useLocation();
-  const navigate = useNavigate();
+  const { categories, loading } = useSelector(state => state.categoryState);
+  const dispatch = useDispatch();
 
   const img1 = useRef(null);
   const img2 = useRef(null);
@@ -14,7 +16,7 @@ export default function AddAdvertisingDetails() {
   const [invalidData, setInvalidData] = useState(false);
   const [userOrderUnrequired, setUserOrderUnrequired] = useState({
     images: [],
-    order_category: categoryId,
+    order_category: null,
   })
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
@@ -47,30 +49,38 @@ export default function AddAdvertisingDetails() {
   const onSubmitChange = async (e) => {
     e.preventDefault();
     if (Object.values(userOrderRequired).find(value => !value?.trim()?.length)?.length === 0 ||
-      Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price)
+      Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price) ||
+      !userOrderUnrequired.order_category.length
     ) {
+      console.log(userOrderUnrequired.order_category)
+
       setInvalidData(true);
       return;
     }
 
     console.log(Object.assign(userOrderRequired, userOrderUnrequired))
 
-    // try {
-    //   const responce = await axios.post(
-    //     "http://127.0.0.1:8000/api/addorder",
-    //     userOrder
-    //   );
-    //   console.log(responce);
-    // } catch (err) {
-    //   console.log("Something Wrong");
-    // }
+    try {
+      const responce = await axios.post(
+        "http://127.0.0.1:8000/api/addorder",
+        Object.assign(userOrderRequired, userOrderUnrequired)
+      );
+      console.log(responce);
+    } catch (err) {
+      console.log("Something Wrong");
+    }
   };
 
   useEffect(() => {
-    if (!categoryId) {
-      navigate("/add-advertising");
+    const fetchData = () => {
+      if (!categories) {
+        dispatch(getCategory());
+      }
     }
-  }, [])
+
+    fetchData();
+
+  }, []);
 
   return (
     <section id="main" className="clearfix ad-details-page">
@@ -95,6 +105,18 @@ export default function AddAdvertisingDetails() {
                       محصول و خدمت خود را بفروشید{" "}
                       <span className="pull-right">* فیلدهای اجباری</span>
                     </h4>
+
+                    <div className="row form-group add-title">
+                      <label className="col-sm-3 label-title">
+                        دسته بندی آگهی شما<span className="required">*</span>
+                      </label>
+                      <div className="col-sm-9">
+                        <select onChange={e => setUserOrderUnrequired({...userOrderUnrequired, order_category: e.target.value})}>
+                          <option></option>
+                          {categories?.map(category => <option value={category.id}>{category.name}</option>)}
+                        </select>
+                      </div>
+                    </div>
 
                     <div className="row form-group add-title">
                       <label className="col-sm-3 label-title">

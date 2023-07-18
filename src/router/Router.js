@@ -31,7 +31,7 @@ function Router() {
         path="/add-advertising-details"
         element={<AddAdvertisingDetails />}
       />
-      <Route path="/add-advertising" element={<AddAdvertising />} />
+      {/* <Route path="/add-advertising" element={<AddAdvertising />} /> */}
       {/* <Route path="/categories/:id" element={<Categories />} /> */}
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/details/:id" element={<Details />} />
