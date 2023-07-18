@@ -13,14 +13,16 @@ export default function Advertising() {
   }, [id]);
 
   const fetchOrderCategory = async () => {
-    try {
-      const result = await axios.get(
-        "http://127.0.0.1:8000/api/ordercategory/" + id
-      );
-      console.log(result.data.results);
-      setOrder(result.data.results);
-    } catch (err) {
-      setOrder([]);
+    if (id) {
+      try {
+        const result = await axios.get(
+          "http://127.0.0.1:8000/api/ordercategory/" + id
+        );
+        console.log(result.data.results);
+        setOrder(result.data.results);
+      } catch (err) {
+        setOrder([]);
+      }
     }
 
   };
