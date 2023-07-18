@@ -1,8 +1,17 @@
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 export default function Dashboard() {
 
-    const location = useLocation();
+    const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!cookies.userID) {
+            navigate("/login")
+        }
+    }, [])
 
     return (
         <section id="main" className="clearfix myads-page">

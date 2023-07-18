@@ -1,7 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
-export default function Header() {
+function Header() {
+
+  const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
+  const navigate = useNavigate();
+
+  const className = ({ isActive }) => (isActive ? "active" : "")
+
   return (
     <header id="header" className="clearfix">
       <nav className="navbar navbar-default navbar-expand-lg">
@@ -29,25 +36,15 @@ export default function Header() {
                 <NavLink
                   end
                   to="/"
-                  className={({ isActive }) => (isActive ? "active" : "")}
+                  className={className}
                 >
                   خانه
                 </NavLink>
               </li>
-              {/* <li>
-                                <NavLink
-                                    to="/categories"
-                                    className={({ isActive }) =>
-                                        isActive ? "active" : ""
-                                    }
-                                >
-                                    دسته‌بندی
-                                </NavLink>
-                            </li> */}
               <li>
                 <NavLink
                   to="/advertisements"
-                  className={({ isActive }) => (isActive ? "active" : "")}
+                  className={className}
                 >
                   آگهی ها
                 </NavLink>
@@ -55,7 +52,7 @@ export default function Header() {
               <li>
                 <NavLink
                   to="/support"
-                  className={({ isActive }) => (isActive ? "active" : "")}
+                  className={className}
                 >
                   پشتیبانی
                 </NavLink>
@@ -63,7 +60,7 @@ export default function Header() {
               <li>
                 <NavLink
                   to="/about-us"
-                  className={({ isActive }) => (isActive ? "active" : "")}
+                  className={className}
                 >
                   درباره ما
                 </NavLink>
@@ -71,48 +68,11 @@ export default function Header() {
               <li>
                 <NavLink
                   to="/contact-us"
-                  className={({ isActive }) => (isActive ? "active" : "")}
+                  className={className}
                 >
                   ارتباط با ما
                 </NavLink>
               </li>
-              {/* <li className="dropdown">
-                                <a href='' className="dropdown-toggle" data-toggle="dropdown">
-                                    سایر<span className="caret"></span>
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <NavLink
-                                            to="/support"
-                                            className={({ isActive }) =>
-                                                isActive ? "active" : ""
-                                            }
-                                        >
-                                            پشتیبانی
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            to="/about-us"
-                                            className={({ isActive }) =>
-                                                isActive ? "active" : ""
-                                            }
-                                        >
-                                            درباره ما
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            to="/contact-us"
-                                            className={({ isActive }) =>
-                                                isActive ? "active" : ""
-                                            }
-                                        >
-                                            ارتباط با ما
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li> */}
             </ul>
           </div>
 
@@ -121,32 +81,34 @@ export default function Header() {
               <li>
                 <i className="fa fa-user"></i>
               </li>
-              <li>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  ورود
-                </NavLink>
-              </li>
-              {/* <li>
-                                <NavLink
-                                    to="/signup"
-                                    className={({ isActive }) =>
-                                        isActive ? "active" : ""
-                                    }
-                                >
-                                    ثبت‌نام
-                                </NavLink>
-                            </li> */}
+              {
+                cookies.userID ?
+                  <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">پروفایل من<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><Link to="/dashboard">داشبورد</Link></li>
+                      <li><Link to="/dashboard/my-ads">آگهی های من</Link></li>
+                      <li><a onClick={() => { removeCookie("userID"); navigate("/") }}>خروج از حساب</a></li>
+                    </ul>
+                  </li> :
+                  <li>
+                    <NavLink
+                      to="/login"
+                      className={className}
+                    >
+                      ورود
+                    </NavLink>
+                  </li>
+              }
             </ul>
 
-            <NavLink to="/add-advertising" className="btn">
+            <NavLink to="/add-advertising-details" className="btn">
               افزودن آگهی شما
             </NavLink>
           </div>
         </div>
       </nav>
-    </header>
+    </header >
   );
 }
+export default Header;
