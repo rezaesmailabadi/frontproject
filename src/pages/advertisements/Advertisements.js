@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -10,11 +11,34 @@ export default function Advertisements() {
 
     const [selectedCategory, setSelectedCategory] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { id } = useParams();
 
     const { categories, loading } = useSelector(state => state.categoryState);
-    const dispatch = useDispatch();
+    const { orders: state } = useSelector(state => state.ordersState);
+    const [orders, setOrder] = useState([]);
+
+    useEffect(() => {
+        fetchOrderCategory();
+    }, [id]);
+
+    useEffect(() => {
+        if (!id) {
+            setOrder(state);
+        }
+    }, [state])
+
+    const fetchOrderCategory = async () => {
+        if (id) {
+            axios.get("http://127.0.0.1:8000/api/ordercategory/" + id)
+                .then(res => setOrder(res.data.results))
+                .catch(err => setOrder([]))
+        }
+        else {
+            setOrder(state);
+        }
+    };
 
     useEffect(() => {
         const fetchData = () => {
@@ -245,7 +269,9 @@ export default function Advertisements() {
                                         </div>
                                     </div>
 
-                                    <Advertising />
+                                    {
+                                        orders?.map(order => <Advertising order={order} />)
+                                    }
 
                                     <div className="ad-section text-center">
                                         <a href="#"><img src="/images/ads/3.jpg" alt="Image" className="img-fluid" /></a>

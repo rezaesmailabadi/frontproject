@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getCategory } from "../../redux/category/categoryActions";
+import { getOrders } from '../../redux/orders/ordersActions';
 
 export default function AddAdvertisingDetails() {
   const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
@@ -96,6 +97,7 @@ export default function AddAdvertisingDetails() {
       );
       console.log(responce);
     } catch (err) {
+      // dispatch(getOrders());
       console.log("Something Wrong");
     }
   };

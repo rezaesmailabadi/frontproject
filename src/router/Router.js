@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
@@ -22,8 +24,17 @@ import Support from "../pages/support/Support";
 import Dashboard from "../pages/my profile/Dashboard";
 import Advertisements from "../pages/advertisements/Advertisements";
 import VerifyCode from "../pages/verify code/VerifyCode";
+import { getOrders } from "../redux/orders/ordersActions";
 
 function Router() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [])
+
+
   return (
     <Routes>
       <Route path="/about-us" element={<AboutUs />} />
