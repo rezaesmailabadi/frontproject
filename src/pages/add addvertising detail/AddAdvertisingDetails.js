@@ -20,7 +20,6 @@ export default function AddAdvertisingDetails() {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [invalidData, setInvalidData] = useState(false);
-<<<<<<< HEAD
   const [userOrderUnrequired, setUserOrderUnrequired] = useState({
     image1: "",
     image2: "",
@@ -28,46 +27,21 @@ export default function AddAdvertisingDetails() {
     order_category: null,
     user_id: Number(cookies.userID),
   })
-=======
-  // const [userOrderUnrequired, setUserOrderUnrequired] = useState({
-  //   image1: "",
-  //   image2: "",
-  //   image3: "",
-  //   // user_id: cookies.userID,
-  // });
-
->>>>>>> 9a6a60410467858017c2f1ec00388ee14e04c1cf
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
     introduction: "",
     min_price: "",
     max_price: "",
-    order_category: 1,
-    image1: "",
-    image2: "",
-    image3: "",
-    user_id: Number(cookies.userID),
   });
 
   function readURL(event, ref, image) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 9a6a60410467858017c2f1ec00388ee14e04c1cf
     let input = event.target;
 
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
         ref.current.src = e.target.result;
-<<<<<<< HEAD
         setUserOrderUnrequired({ ...userOrderUnrequired, [image]: e.target.result });
-=======
-        setUserOrderRequired({
-          ...userOrderRequired,
-          [image]: e.target.result,
-        });
->>>>>>> 9a6a60410467858017c2f1ec00388ee14e04c1cf
       };
       reader.readAsDataURL(input.files[0]);
     }
@@ -83,46 +57,26 @@ export default function AddAdvertisingDetails() {
   const onSubmitChange = async (e) => {
     e.preventDefault();
 
-    // if (!cookies.userID) {
-    //   navigate("/login");
-    // }
+    if (!cookies.userID) {
+      navigate("/login");
+    }
 
-    // if (
-    //   Object.values(userOrderRequired).find((value) => !value?.trim()?.length)
-    //     ?.length === 0 ||
-    //   Number(userOrderRequired.max_price) <
-    //     Number(userOrderRequired.min_price) ||
-    //   !selectedCategory
-    // ) {
-    //   console.log(userOrderUnrequired.order_category);
+    if (
+      Object.values(userOrderRequired).find((value) => !value?.trim()?.length)
+        ?.length === 0 ||
+      Number(userOrderRequired.max_price) <
+        Number(userOrderRequired.min_price) ||
+      !selectedCategory
+    ) {
+      console.log(userOrderUnrequired.order_category);
 
-    //   setInvalidData(true);
-    //   return;
-    // }
+      setInvalidData(true);
+      return;
+    }
 
-<<<<<<< HEAD
     const obj = {
       ...userOrderRequired,
       ...userOrderUnrequired
-=======
-    try {
-      const obj = {
-        ...userOrderRequired,
-        // ...userOrderUnrequired,
-      };
-
-      console.log(userOrderRequired);
-      console.log(userOrderRequired.user_id);
-      const responce = await axios.post(
-        "http://127.0.0.1:8000/api/addorder",
-        // obj
-        userOrderRequired
-      );
-      console.log(responce);
-    } catch (err) {
-      // dispatch(getOrders());
-      console.log("Something Wrong");
->>>>>>> 9a6a60410467858017c2f1ec00388ee14e04c1cf
     }
 
     axios.post("http://127.0.0.1:8000/api/addorder", obj)
@@ -183,18 +137,9 @@ export default function AddAdvertisingDetails() {
                             </li>
                             {categories?.map((category) => (
                               <li
-<<<<<<< HEAD
                                 onClick={e => {
                                   setUserOrderUnrequired({ ...userOrderUnrequired, order_category: category.id });
                                   setSelectedCategory(category)
-=======
-                                onClick={(e) => {
-                                  // setUserOrderUnrequired({
-                                  //   ...userOrderUnrequired,
-                                  //   order_category: category.id,
-                                  // });
-                                  setSelectedCategory(category);
->>>>>>> 9a6a60410467858017c2f1ec00388ee14e04c1cf
                                 }}
                               >
                                 {category.name}
