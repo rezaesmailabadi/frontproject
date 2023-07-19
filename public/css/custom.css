@@ -92,3 +92,18 @@
 .add-category .category-dropdown .category-change li:hover{
     color: var(--mainColor);
 }
+
+.select-option input{
+    width: 15px;
+    height: 15px;
+}
+
+.select-nardeban{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.select-nardeban label{
+    margin-left: 8px;
+}

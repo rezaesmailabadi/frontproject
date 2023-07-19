@@ -65,11 +65,9 @@ export default function AddAdvertisingDetails() {
       Object.values(userOrderRequired).find((value) => !value?.trim()?.length)
         ?.length === 0 ||
       Number(userOrderRequired.max_price) <
-        Number(userOrderRequired.min_price) ||
+      Number(userOrderRequired.min_price) ||
       !selectedCategory
     ) {
-      console.log(userOrderUnrequired.order_category);
-
       setInvalidData(true);
       return;
     }
@@ -79,9 +77,7 @@ export default function AddAdvertisingDetails() {
       ...userOrderUnrequired
     }
 
-    axios.post("http://127.0.0.1:8000/api/addorder", obj)
-      .then(res => dispatch(getOrders()))
-      .catch(err => console.log(err))
+    navigate("/add-advertising", { state: obj })
 
   };
 
@@ -257,7 +253,7 @@ export default function AddAdvertisingDetails() {
                           (!userOrderRequired.min_price.trim().length ||
                             !Number(userOrderRequired.min_price) ||
                             Number(userOrderRequired.max_price) <
-                              Number(userOrderRequired.min_price)) && (
+                            Number(userOrderRequired.min_price)) && (
                             <span className="text-error">
                               لطفا یک قیمت مناسب انتخاب کنید.
                             </span>
@@ -281,7 +277,7 @@ export default function AddAdvertisingDetails() {
                           (!userOrderRequired.max_price.trim().length ||
                             !Number(userOrderRequired.max_price) ||
                             Number(userOrderRequired.max_price) <
-                              Number(userOrderRequired.min_price)) && (
+                            Number(userOrderRequired.min_price)) && (
                             <span className="text-error">
                               لطفا یک قیمت مناسب انتخاب کنید.
                             </span>
@@ -316,7 +312,7 @@ export default function AddAdvertisingDetails() {
                       className="btn btn-primary"
                       onClick={(e) => onSubmitChange(e)}
                     >
-                      افزودن آگهی شما
+                      بعدی
                     </button>
                   </div>
                 </fieldset>
