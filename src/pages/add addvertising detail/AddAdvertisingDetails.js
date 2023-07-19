@@ -6,11 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { getCategory } from "../../redux/category/categoryActions";
 
 export default function AddAdvertisingDetails() {
-
   const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
-  console.log("cookies => ", cookies)
+  console.log("cookies => ", cookies);
 
-  const { categories, loading } = useSelector(state => state.categoryState);
+  const { categories, loading } = useSelector((state) => state.categoryState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,28 +19,35 @@ export default function AddAdvertisingDetails() {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [invalidData, setInvalidData] = useState(false);
-  const [userOrderUnrequired, setUserOrderUnrequired] = useState({
-    images: [],
-    order_category: null,
-    user_id: cookies.userID,
-  })
+  // const [userOrderUnrequired, setUserOrderUnrequired] = useState({
+  //   image1: "",
+  //   image2: "",
+  //   image3: "",
+  //   // user_id: cookies.userID,
+  // });
+
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
     introduction: "",
     min_price: "",
     max_price: "",
+    order_category: 1,
+    image1: "",
+    image2: "",
+    image3: "",
+    user_id: Number(cookies.userID),
   });
 
-  function readURL(event, ref) {
+  function readURL(event, ref, image) {
     let input = event.target;
 
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
         ref.current.src = e.target.result;
-        setUserOrderUnrequired({
-          ...userOrderUnrequired,
-          images: [...userOrderUnrequired.images, e.target.result],
+        setUserOrderRequired({
+          ...userOrderRequired,
+          [image]: e.target.result,
         });
       };
       reader.readAsDataURL(input.files[0]);
@@ -58,32 +64,35 @@ export default function AddAdvertisingDetails() {
   const onSubmitChange = async (e) => {
     e.preventDefault();
 
-    if (!cookies.userID) {
-      navigate("/login");
-    }
+    // if (!cookies.userID) {
+    //   navigate("/login");
+    // }
 
-    if (Object.values(userOrderRequired).find(value => !value?.trim()?.length)?.length === 0 ||
-      Number(userOrderRequired.max_price) < Number(userOrderRequired.min_price) ||
-      !selectedCategory
-    ) {
-      console.log(userOrderUnrequired.order_category);
+    // if (
+    //   Object.values(userOrderRequired).find((value) => !value?.trim()?.length)
+    //     ?.length === 0 ||
+    //   Number(userOrderRequired.max_price) <
+    //     Number(userOrderRequired.min_price) ||
+    //   !selectedCategory
+    // ) {
+    //   console.log(userOrderUnrequired.order_category);
 
-      setInvalidData(true);
-      return;
-    }
+    //   setInvalidData(true);
+    //   return;
+    // }
 
     try {
       const obj = {
         ...userOrderRequired,
-        ...userOrderUnrequired,
+        // ...userOrderUnrequired,
       };
-      console.log(obj);
 
-      console.log(obj)
-
+      console.log(userOrderRequired);
+      console.log(userOrderRequired.user_id);
       const responce = await axios.post(
         "http://127.0.0.1:8000/api/addorder",
-        obj
+        // obj
+        userOrderRequired
       );
       console.log(responce);
     } catch (err) {
@@ -144,10 +153,10 @@ export default function AddAdvertisingDetails() {
                             {categories?.map((category) => (
                               <li
                                 onClick={(e) => {
-                                  setUserOrderUnrequired({
-                                    ...userOrderUnrequired,
-                                    order_category: category.id,
-                                  });
+                                  // setUserOrderUnrequired({
+                                  //   ...userOrderUnrequired,
+                                  //   order_category: category.id,
+                                  // });
                                   setSelectedCategory(category);
                                 }}
                               >
@@ -204,7 +213,7 @@ export default function AddAdvertisingDetails() {
                               for="upload-image-one"
                             >
                               <input
-                                onChange={(e) => readURL(e, img1)}
+                                onChange={(e) => readURL(e, img1, "image1")}
                                 type="file"
                                 className="upload-input"
                                 id="upload-image-one"
@@ -220,7 +229,7 @@ export default function AddAdvertisingDetails() {
                               for="upload-image-two"
                             >
                               <input
-                                onChange={(e) => readURL(e, img2)}
+                                onChange={(e) => readURL(e, img2, "image2")}
                                 type="file"
                                 className="upload-input"
                                 id="upload-image-two"
@@ -236,7 +245,7 @@ export default function AddAdvertisingDetails() {
                               for="upload-image-three"
                             >
                               <input
-                                onChange={(e) => readURL(e, img3)}
+                                onChange={(e) => readURL(e, img3, "image3")}
                                 type="file"
                                 className="upload-input"
                                 id="upload-image-three"
