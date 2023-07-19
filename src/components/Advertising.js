@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link, useParams } from "react-router-dom";
-import Loader from "./Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Advertising({ order }) {
 
-  // const { id } = useParams();
   if (!order) {
     return <>NULL</>
   }
@@ -17,9 +12,9 @@ export default function Advertising({ order }) {
 
       <div key={order.id} className="item-image-box col-lg-4">
         <div className="item-image">
-          <Link to={`/details/:id`}>
+          <Link to={`/details/${order.id}`}>
             <img
-              src="/images/trending/1.jpg"
+              src={order?.image_one}
               alt="Image"
               className="img-fluid"
             />

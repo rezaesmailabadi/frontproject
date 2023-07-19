@@ -22,9 +22,11 @@ export default function AddAdvertisingDetails() {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [invalidData, setInvalidData] = useState(false);
   const [userOrderUnrequired, setUserOrderUnrequired] = useState({
-    images: [],
+    image1: "",
+    image2: "",
+    image3: "",
     order_category: null,
-    user_id: cookies.userID,
+    user_id: Number(cookies.userID),
   })
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
@@ -33,7 +35,7 @@ export default function AddAdvertisingDetails() {
     max_price: "",
   });
 
-  function readURL(event, ref) {
+  function readURL(event, ref, image) {
 
     let input = event.target;
 
@@ -41,7 +43,7 @@ export default function AddAdvertisingDetails() {
       var reader = new FileReader();
       reader.onload = function (e) {
         ref.current.src = e.target.result;
-        setUserOrderUnrequired({ ...userOrderUnrequired, images: [...userOrderUnrequired.images, e.target.result] });
+        setUserOrderUnrequired({ ...userOrderUnrequired, [image]: e.target.result });
       };
       reader.readAsDataURL(input.files[0]);
     }
@@ -72,23 +74,15 @@ export default function AddAdvertisingDetails() {
     }
 
 
-    try {
-      const obj = {
-        ...userOrderRequired,
-        ...userOrderUnrequired
-      }
-
-      console.log(obj)
-
-      const responce = await axios.post(
-        "http://127.0.0.1:8000/api/addorder",
-        obj
-      );
-      console.log(responce);
-    } catch (err) {
-      // dispatch(getOrders());
-      console.log("Something Wrong");
+    const obj = {
+      ...userOrderRequired,
+      ...userOrderUnrequired
     }
+
+    axios.post("http://127.0.0.1:8000/api/addorder", obj)
+      .then(res => dispatch(getOrders()))
+      .catch(err => console.log(err))
+
   };
 
   useEffect(() => {
@@ -138,7 +132,10 @@ export default function AddAdvertisingDetails() {
                             <li onClick={() => setSelectedCategory(null)}>انتخاب دسته بندی</li>
                             {categories?.map(category =>
                               <li
-                                onClick={e => { setUserOrderUnrequired({ ...userOrderUnrequired, order_category: category.id }); setSelectedCategory(category) }}
+                                onClick={e => {
+                                  setUserOrderUnrequired({ ...userOrderUnrequired, order_category: category.id });
+                                  setSelectedCategory(category)
+                                }}
                               >
                                 {category.name}
                               </li>)}
@@ -185,7 +182,7 @@ export default function AddAdvertisingDetails() {
                               for="upload-image-one"
                             >
                               <input
-                                onChange={(e) => readURL(e, img1)}
+                                onChange={(e) => readURL(e, img1, "image1")}
                                 type="file"
                                 className="upload-input"
                                 id="upload-image-one"
@@ -201,7 +198,7 @@ export default function AddAdvertisingDetails() {
                               for="upload-image-two"
                             >
                               <input
-                                onChange={(e) => readURL(e, img2)}
+                                onChange={(e) => readURL(e, img2, "image2")}
                                 type="file"
                                 className="upload-input"
                                 id="upload-image-two"
@@ -217,7 +214,7 @@ export default function AddAdvertisingDetails() {
                               for="upload-image-three"
                             >
                               <input
-                                onChange={(e) => readURL(e, img3)}
+                                onChange={(e) => readURL(e, img3, "image3")}
                                 type="file"
                                 className="upload-input"
                                 id="upload-image-three"

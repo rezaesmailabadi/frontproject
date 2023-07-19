@@ -17,13 +17,14 @@ export default function Advertisements() {
 
     const { categories, loading } = useSelector(state => state.categoryState);
     const { orders: state } = useSelector(state => state.ordersState);
-    const [orders, setOrder] = useState([]);
+    const [orders, setOrder] = useState(null);
 
     useEffect(() => {
         fetchOrderCategory();
     }, [id]);
 
     useEffect(() => {
+        console.log("STATE")
         if (!id) {
             setOrder(state);
         }
@@ -270,7 +271,9 @@ export default function Advertisements() {
                                     </div>
 
                                     {
+                                        orders ?
                                         orders?.map(order => <Advertising order={order} />)
+                                        : <Loader />
                                     }
 
                                     <div className="ad-section text-center">

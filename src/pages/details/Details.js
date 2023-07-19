@@ -1,9 +1,38 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import Advertising from '../../components/Advertising'
+import Loader from '../../components/Loader';
 import SomthingSell from '../../components/SomthingSell'
 
 export default function Details() {
+
+    const [order, setOrder] = useState(null);
+    const { id } = useParams();
+
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }
+
+    function getDateFormat(uDate, option) {
+        let date = new Intl.DateTimeFormat('fa-IR',).format(uDate);
+        return date;
+    }
+
+    useEffect(() => {
+        const fetchOrder = () => {
+            axios.get(`http://127.0.0.1:8000/api/order-datails/${id}`)
+                .then(res => { setOrder(res.data.results); console.log(new Date(res.data.results.created_at)) })
+                .catch(err => console.log(err))
+        }
+
+        fetchOrder()
+    }, [id])
+
     return (
         <>
             <section id="main" className="clearfix details-page">
@@ -51,132 +80,128 @@ export default function Details() {
                         </div>
                     </div>
 
-
                     <div className="section slider">
-                        <div className="row">
+                        {
+                            order ?
+                                <div className="row">
 
-                            <div className="col-lg-7">
-                                <div id="product-carousel" className="carousel slide" data-ride="carousel">
+                                    <div className="col-lg-7">
+                                        <div id="product-carousel" className="carousel slide" data-ride="carousel">
 
-                                    <ol className="carousel-indicators">
-                                        <li data-target="#product-carousel" data-slide-to="0" className="active">
-                                            <img src="/images/slider/list-1.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                        </li>
-                                        <li data-target="#product-carousel" data-slide-to="1">
-                                            <img src="/images/slider/list-2.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                        </li>
-                                        <li data-target="#product-carousel" data-slide-to="2">
-                                            <img src="/images/slider/list-3.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                        </li>
-                                        <li data-target="#product-carousel" data-slide-to="3">
-                                            <img src="/images/slider/list-4.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                        </li>
-                                        <li data-target="#product-carousel" data-slide-to="4">
-                                            <img src="/images/slider/list-5.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                        </li>
-                                    </ol>
+                                            {/* <ol className="carousel-indicators">
+                                                <li data-target="#product-carousel" data-slide-to="0" className="active">
+                                                    <img src="/images/slider/list-1.jpg" alt="Carousel Thumb" className="img-fluid" />
+                                                </li>
+                                                <li data-target="#product-carousel" data-slide-to="1">
+                                                    <img src="/images/slider/list-2.jpg" alt="Carousel Thumb" className="img-fluid" />
+                                                </li>
+                                                <li data-target="#product-carousel" data-slide-to="2">
+                                                    <img src="/images/slider/list-3.jpg" alt="Carousel Thumb" className="img-fluid" />
+                                                </li>
+                                                <li data-target="#product-carousel" data-slide-to="3">
+                                                    <img src="/images/slider/list-4.jpg" alt="Carousel Thumb" className="img-fluid" />
+                                                </li>
+                                                <li data-target="#product-carousel" data-slide-to="4">
+                                                    <img src="/images/slider/list-5.jpg" alt="Carousel Thumb" className="img-fluid" />
+                                                </li>
+                                            </ol> */}
 
 
-                                    <div className="carousel-inner" role="listbox">
+                                            <div className="carousel-inner" role="listbox">
 
-                                        <div className="item carousel-item active">
-                                            <div className="carousel-image">
+                                                {
+                                                    order.image_one && <div className="item carousel-item active">
+                                                        <div className="carousel-image">
+                                                            <img src={order.image_one} alt="Featured Image" className="img-fluid" />
+                                                        </div>
+                                                    </div>
+                                                }
 
-                                                <img src="/images/slider/1.jpg" alt="Featured Image" className="img-fluid" />
+                                                {
+                                                    order.image_two && <div className="item carousel-item">
+                                                        <div className="carousel-image">
+                                                            <img src={order.image_two} alt="Featured Image" className="img-fluid" />
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                {/* {
+                                                    order.image_three && <div className="item carousel-item">
+                                                        <div className="carousel-image">
+                                                            <img src={order.image_three} alt="Featured Image" className="img-fluid" />
+                                                        </div>
+                                                    </div>
+                                                } */}
+
                                             </div>
-                                        </div>
 
+                                            {
+                                                (order.image_one && order.image_two) ||
+                                                (order.image_one && order.image_three) ||
+                                                (order.image_two && order.image_three) ?
+                                                <>
+                                                    <a className="left carousel-control" href="#product-carousel" role="button" data-slide="prev">
+                                                        <i className="fa fa-chevron-left"></i>
+                                                    </a>
+                                                    <a className="right carousel-control" href="#product-carousel" role="button" data-slide="next">
+                                                        <i className="fa fa-chevron-right"></i>
+                                                    </a>
+                                                </>
+                                                : null
 
-                                        <div className="item carousel-item">
-                                            <div className="carousel-image">
-
-                                                <img src="/images/slider/2.jpg" alt="Featured Image" className="img-fluid" />
-                                            </div>
-                                        </div>
-
-
-                                        <div className="item carousel-item">
-                                            <div className="carousel-image">
-
-                                                <img src="/images/slider/3.jpg" alt="Featured Image" className="img-fluid" />
-                                            </div>
-                                        </div>
-
-
-                                        <div className="item carousel-item">
-                                            <div className="carousel-image">
-
-                                                <img src="/images/slider/4.jpg" alt="Featured Image" className="img-fluid" />
-                                            </div>
-                                        </div>
-
-
-                                        <div className="item carousel-item">
-                                            <div className="carousel-image">
-
-                                                <img src="/images/slider/5.jpg" alt="Featured Image" className="img-fluid" />
-                                            </div>
+                                            }
                                         </div>
                                     </div>
 
 
-                                    <a className="left carousel-control" href="#product-carousel" role="button" data-slide="prev">
-                                        <i className="fa fa-chevron-left"></i>
-                                    </a>
-                                    <a className="right carousel-control" href="#product-carousel" role="button" data-slide="next">
-                                        <i className="fa fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+                                    <div className="col-lg-5">
+                                        <div className="slider-text">
+                                            {/* <h2>88000تومان </h2> */}
+                                            <h3 className="title">{order.title}</h3>
+                                            {/* <p><span>آگهی‌دهنده: <a href="#">مینا مانا</a></span> */}
+                                            {/* <span>شناسه آگهی:<a href="#" className="time"> 251716763</a></span></p> */}
+                                            <span className="icon"><i className="fa fa-clock-o"></i><a href="#">{new Date(order.created_at).toLocaleDateString("fa", options)}</a></span>
+                                            <span className="icon"><i className="fa fa-map-marker"></i><a href="#">ایران- تهران</a></span>
+                                            <span className="icon"><i className="fa fa-suitcase online"></i><a href="#">فروشنده<strong>(آنلاین)</strong></a></span>
 
 
-                            <div className="col-lg-5">
-                                <div className="slider-text">
-                                    <h2>88000تومان </h2>
-                                    <h3 className="title">گوشی آیفون اپل  6، 16 گیگ</h3>
-                                    <p><span>آگهی‌دهنده: <a href="#">مینا مانا</a></span>
-                                        <span>شناسه آگهی:<a href="#" className="time"> 251716763</a></span></p>
-                                    <span className="icon"><i className="fa fa-clock-o"></i><a href="#">7 مهر 1399 - 10:10 بعدازظهر</a></span>
-                                    <span className="icon"><i className="fa fa-map-marker"></i><a href="#">ایران- تهران</a></span>
-                                    <span className="icon"><i className="fa fa-suitcase online"></i><a href="#">فروشنده<strong>(آنلاین)</strong></a></span>
+                                            <div className="short-info">
+                                                <h4>اطلاعات کوتاه</h4>
+                                                <p><strong>وضعیت: </strong><a href="#">جدید</a> </p>
+                                                <p><strong>برند: </strong><a href="#">اپل</a> </p>
+                                                <p><strong>ویژگی‌ها: </strong><a href="#">دوربین,</a> <a href="#">دو درگاه,</a> <a href="#">GSM,</a> <a href="#">لمسی</a> </p>
+                                                <p><strong>مدل: </strong><a href="#">iPhone 6</a></p>
+                                            </div>
 
 
-                                    <div className="short-info">
-                                        <h4>اطلاعات کوتاه</h4>
-                                        <p><strong>وضعیت: </strong><a href="#">جدید</a> </p>
-                                        <p><strong>برند: </strong><a href="#">اپل</a> </p>
-                                        <p><strong>ویژگی‌ها: </strong><a href="#">دوربین,</a> <a href="#">دو درگاه,</a> <a href="#">GSM,</a> <a href="#">لمسی</a> </p>
-                                        <p><strong>مدل: </strong><a href="#">iPhone 6</a></p>
-                                    </div>
+                                            <div className="contact-with">
+                                                <h4>اطلاعات تماس </h4>
+                                                <span className="btn btn-red show-number">
+                                                    <i className="fa fa-phone-square"></i>
+                                                    <span className="hide-text">برای مشاهده شماره تماس کلیک کنید</span>
+                                                    <span className="hide-number">012-1234567890 </span>
+                                                </span>
+                                                <a href="#" className="btn"><i className="fa fa-envelope-square"></i>تماس با ایمیل</a>
+                                            </div>
 
 
-                                    <div className="contact-with">
-                                        <h4>اطلاعات تماس </h4>
-                                        <span className="btn btn-red show-number">
-                                            <i className="fa fa-phone-square"></i>
-                                            <span className="hide-text">برای مشاهده شماره تماس کلیک کنید</span>
-                                            <span className="hide-number">012-1234567890 </span>
-                                        </span>
-                                        <a href="#" className="btn"><i className="fa fa-envelope-square"></i>تماس با ایمیل</a>
-                                    </div>
-
-
-                                    <div className="social-links">
-                                        <h4>اشتراک آگهی</h4>
-                                        <ul className="list-inline">
-                                            <li><a href="#"><i className="fa fa-facebook-square"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-twitter-square"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-google-plus-square"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-linkedin-square"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-pinterest-square"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-tumblr-square"></i></a></li>
-                                        </ul>
+                                            <div className="social-links">
+                                                <h4>اشتراک آگهی</h4>
+                                                <ul className="list-inline">
+                                                    <li><a href="#"><i className="fa fa-facebook-square"></i></a></li>
+                                                    <li><a href="#"><i className="fa fa-twitter-square"></i></a></li>
+                                                    <li><a href="#"><i className="fa fa-google-plus-square"></i></a></li>
+                                                    <li><a href="#"><i className="fa fa-linkedin-square"></i></a></li>
+                                                    <li><a href="#"><i className="fa fa-pinterest-square"></i></a></li>
+                                                    <li><a href="#"><i className="fa fa-tumblr-square"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                                : <Loader />
+                        }
                     </div>
-
                     <div className="description-info">
                         <div className="row">
 

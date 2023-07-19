@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import Advertising from '../../../components/Advertising'
+import Loader from '../../../components/Loader';
 
 export default function MyAds() {
 
     const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
-    const [orders, setOrder] = useState([]);
+    const [orders, setOrder] = useState(null);
 
     const { orders: state } = useSelector(state => state.ordersState);
 
@@ -20,8 +21,9 @@ export default function MyAds() {
                 <h2>آگهی‌های من</h2>
 
                 {
-                    orders?.filter(order => order.user_id == cookies.userID)
-                        .map(order => <Advertising order={order} />)
+                    orders ? orders?.filter(order => order.user_id == cookies.userID)
+                    .map(order => <Advertising order={order} />)
+                    : <Loader />
                 }
             </div>
         </div>
