@@ -18,11 +18,6 @@ export default function Details() {
         minute: "numeric"
     }
 
-    function getDateFormat(uDate, option) {
-        let date = new Intl.DateTimeFormat('fa-IR',).format(uDate);
-        return date;
-    }
-
     useEffect(() => {
         const fetchOrder = () => {
             axios.get(`http://127.0.0.1:8000/api/order-datails/${id}`)
@@ -250,7 +245,7 @@ export default function Details() {
                                         <div className="single-cta">
 
                                             <div className="cta-icon icon-secure">
-                                                <img src="images/icon/13.png" alt="Icon" className="img-fluid" />
+                                                <img src="/images/icon/13.png" alt="Icon" className="img-fluid" />
                                             </div>
 
                                             <h4>خرید و فروش امن</h4>
@@ -261,7 +256,7 @@ export default function Details() {
                                         <div className="single-cta">
 
                                             <div className="cta-icon icon-support">
-                                                <img src="images/icon/14.png" alt="Icon" className="img-fluid" />
+                                                <img src="/images/icon/14.png" alt="Icon" className="img-fluid" />
                                             </div>
 
                                             <h4>پشتیبانی 24/7</h4>
@@ -273,7 +268,7 @@ export default function Details() {
                                         <div className="single-cta">
 
                                             <div className="cta-icon icon-trading" >
-                                                <img src="images/icon/15.png" alt="Icon" className="img-fluid" />
+                                                <img src="/images/icon/15.png" alt="Icon" className="img-fluid" />
                                             </div>
 
                                             <h4>خرید و فروش آسان</h4>
