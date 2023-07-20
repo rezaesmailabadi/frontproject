@@ -8,6 +8,7 @@ import SomthingSell from '../../components/SomthingSell'
 export default function Details() {
 
     const [order, setOrder] = useState(null);
+    const [orderImages, setOrderImages] = useState([]);
     const { id } = useParams();
 
     const options = {
@@ -21,7 +22,7 @@ export default function Details() {
     useEffect(() => {
         const fetchOrder = () => {
             axios.get(`http://127.0.0.1:8000/api/order-datails/${id}`)
-                .then(res => { setOrder(res.data.results); console.log(new Date(res.data.results.created_at)) })
+                .then(res => { setOrder(res.data.results); setOrderImages([res.data.results.image_one, res.data.results.image_two, res.data.results.image_three]) })
                 .catch(err => console.log(err))
         }
 
@@ -83,67 +84,51 @@ export default function Details() {
                                     <div className="col-lg-7">
                                         <div id="product-carousel" className="carousel slide" data-ride="carousel">
 
-                                            {/* <ol className="carousel-indicators">
-                                                <li data-target="#product-carousel" data-slide-to="0" className="active">
-                                                    <img src="/images/slider/list-1.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                                </li>
-                                                <li data-target="#product-carousel" data-slide-to="1">
-                                                    <img src="/images/slider/list-2.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                                </li>
-                                                <li data-target="#product-carousel" data-slide-to="2">
-                                                    <img src="/images/slider/list-3.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                                </li>
-                                                <li data-target="#product-carousel" data-slide-to="3">
-                                                    <img src="/images/slider/list-4.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                                </li>
-                                                <li data-target="#product-carousel" data-slide-to="4">
-                                                    <img src="/images/slider/list-5.jpg" alt="Carousel Thumb" className="img-fluid" />
-                                                </li>
-                                            </ol> */}
-
+                                            <ol className="carousel-indicators">
+                                                {
+                                                    orderImages.filter(item => !item).length === 3 ? null :
+                                                        orderImages.map((item, i) => {
+                                                            if (item) {
+                                                                return <li data-target="#product-carousel" data-slide-to={i} className={`${i === 0 && "active"}`}>
+                                                                    <img src={item} alt="Carousel Thumb" className="img-fluid" />
+                                                                </li>
+                                                            }
+                                                        }
+                                                        )
+                                                }
+                                            </ol>
 
                                             <div className="carousel-inner" role="listbox">
 
                                                 {
-                                                    order.image_one && <div className="item carousel-item active">
-                                                        <div className="carousel-image">
-                                                            <img src={order.image_one} alt="Featured Image" className="img-fluid" />
-                                                        </div>
-                                                    </div>
+                                                    orderImages.filter(item => !item).length === 3 ? null :
+                                                        orderImages.map((item, i) => {
+                                                            if (item) {
+                                                                return <div className={`item carousel-item ${i === 0 && "active"}`}>
+                                                                    <div className="carousel-image">
+                                                                        <img src={item} alt="Featured Image" className="img-fluid" />
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        )
                                                 }
-
-                                                {
-                                                    order.image_two && <div className="item carousel-item">
-                                                        <div className="carousel-image">
-                                                            <img src={order.image_two} alt="Featured Image" className="img-fluid" />
-                                                        </div>
-                                                    </div>
-                                                }
-
-                                                {/* {
-                                                    order.image_three && <div className="item carousel-item">
-                                                        <div className="carousel-image">
-                                                            <img src={order.image_three} alt="Featured Image" className="img-fluid" />
-                                                        </div>
-                                                    </div>
-                                                } */}
 
                                             </div>
 
                                             {
                                                 (order.image_one && order.image_two) ||
-                                                (order.image_one && order.image_three) ||
-                                                (order.image_two && order.image_three) ?
-                                                <>
-                                                    <a className="left carousel-control" href="#product-carousel" role="button" data-slide="prev">
-                                                        <i className="fa fa-chevron-left"></i>
-                                                    </a>
-                                                    <a className="right carousel-control" href="#product-carousel" role="button" data-slide="next">
-                                                        <i className="fa fa-chevron-right"></i>
-                                                    </a>
-                                                </>
-                                                : null
-
+                                                    (order.image_one && order.image_three) ||
+                                                    (order.image_two && order.image_three) ?
+                                                    <>
+                                                        <a className="left carousel-control" href="#product-carousel" role="button" data-slide="prev">
+                                                            <i className="fa fa-chevron-left"></i>
+                                                        </a>
+                                                        <a className="right carousel-control" href="#product-carousel" role="button" data-slide="next">
+                                                            <i className="fa fa-chevron-right"></i>
+                                                        </a>
+                                                    </>
+                                                    : null
                                             }
                                         </div>
                                     </div>

@@ -24,7 +24,6 @@ export default function Advertisements() {
     }, [id]);
 
     useEffect(() => {
-        console.log("STATE")
         if (!id) {
             setOrder(state);
         }
@@ -33,7 +32,7 @@ export default function Advertisements() {
     const fetchOrderCategory = async () => {
         if (id) {
             axios.get("http://127.0.0.1:8000/api/ordercategory/" + id)
-                .then(res => setOrder(res.data.results))
+                .then(res => setOrder(res.data.results.reverse()))
                 .catch(err => setOrder([]))
         }
         else {
@@ -124,25 +123,29 @@ export default function Advertisements() {
                                                 <ul>
 
                                                     {
-                                                        loading ? <Loader /> :
+                                                        categories ?
                                                             <>
                                                                 <li>
                                                                     <Link to="/advertisements">
                                                                         <i className="icofont icofont-laptop-alt"></i>
-                                                                        <span style={{ color: id ? "#000" : "red" }} onClick={() => setSelectedCategory(null)}>All</span>
-                                                                        <span>(1029)</span>
+                                                                        <span className={`${id ? "" : "active"}`} onClick={() => setSelectedCategory(null)}>All</span>
+                                                                        <span>({state?.length})</span>
                                                                     </Link>
                                                                 </li>
                                                                 {categories?.map(category =>
-                                                                    <li key={category.id}>
+                                                                    <li
+                                                                        key={category.id}
+                                                                    // onClick={() => setSelectedCategory(category)}
+                                                                    >
                                                                         <Link to={`/advertisements/${category.id}`}>
                                                                             <i className="icofont icofont-laptop-alt"></i>
-                                                                            <span style={{ color: id == category.id ? "red" : "#000" }}>{category.name}</span>
-                                                                            <span>(1029)</span>
+                                                                            <span className={`${id == category.id ? "active" : ""}`}>{category.name}</span>
+                                                                            <span>({state?.filter(order => order.category_id == category.id).length})</span>
                                                                         </Link>
                                                                     </li>
                                                                 )}
                                                             </>
+                                                            : <Loader />
                                                     }
                                                 </ul>
                                             </div>
@@ -272,8 +275,8 @@ export default function Advertisements() {
 
                                     {
                                         orders ?
-                                        orders?.map(order => <Advertising order={order} />)
-                                        : <Loader />
+                                            orders?.map(order => <Advertising order={order} />)
+                                            : <Loader />
                                     }
 
                                     <div className="ad-section text-center">

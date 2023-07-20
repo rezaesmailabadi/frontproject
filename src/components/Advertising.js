@@ -26,7 +26,7 @@ export default function Advertising({ order }) {
         <div className="ad-info">
           <h3 className="item-price"> {order.price} تومان </h3>
           <h4 className="item-title">
-            <Link to={`/details/:id`}>{order.title}</Link>
+            <Link to={`/details/${order.id}`}>{order.title}</Link>
           </h4>
           <div className="item-cat">
             <span>

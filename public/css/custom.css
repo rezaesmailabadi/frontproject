@@ -6,6 +6,7 @@
 .nav-right li a.active,
 .user-menu li a.active,
 .selected-category,
+.collapse .card-body ul li span.active,
 .text-error {
     color: var(--mainColor) !important;
 }
@@ -106,4 +107,16 @@
 
 .select-nardeban label{
     margin-left: 8px;
+}
+
+#product-carousel .carousel-indicators img{
+    width: auto;
+    height: 80px;
+    object-fit: cover;
+}
+
+#product-carousel .carousel-inner .carousel-item img{
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
 }
