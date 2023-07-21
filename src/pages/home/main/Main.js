@@ -1,9 +1,13 @@
 import Ads from "../../../components/Ads";
 import Categories from "../categories/Categorie";
 import NewestAds from "../newest ads/NewestAds";
-import RecentAds from "../../../components/Advertising";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 export default function Main() {
+
+  const location = useLocation();
+  
+
   return (
     <section id="main" className="clearfix home-default">
       <div className="container">
@@ -112,45 +116,23 @@ export default function Main() {
               </div>
               <div className="section trending-ads">
                 <div className="section-title tab-manu">
-                  <h4>پربازدیدترین آگهی‌ها</h4>
+                  <h4>{location.pathname === "/" ? "محبوبترین آگهی‌ها" : "پربازدیدترین آگهی‌ها"}</h4>
                   <ul className="nav nav-tabs" role="tablist">
                     <li role="presentation">
-                      <a
-                        className="active"
-                        href="#"
-                        data-toggle="tab"
-                      >
-                        آخرین آگهی‌ها
-                      </a>
-                    </li>
-                    <li role="presentation">
-                      <a href="#" data-toggle="tab">
+                      <NavLink to="/" data-toggle="tab">
                         محبوبترین آگهی‌ها
-                      </a>
+                      </NavLink>
                     </li>
                     <li role="presentation">
-                      <a href="#" data-toggle="tab">
+                      <NavLink to="/most-visited" data-toggle="tab">
                         پربازدیدترین آگهی‌ها
-                      </a>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
 
                 <div className="tab-content">
-                  <div
-                    role="tabpanel"
-                    className="tab-pane fade in active show"
-                    id="recent-ads"
-                  >
-                    <RecentAds />
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="popular">
-                    <RecentAds />
-                  </div>
-
-                  <div role="tabpanel" className="tab-pane fade" id="hot-ads">
-                    <RecentAds />
-                  </div>
+                  <Outlet />
                 </div>
                 <div className="section cta text-center">
                   <div className="row">

@@ -25,6 +25,8 @@ import Dashboard from "../pages/my profile/Dashboard";
 import Advertisements from "../pages/advertisements/Advertisements";
 import VerifyCode from "../pages/verify code/VerifyCode";
 import { getOrders } from "../redux/orders/ordersActions";
+import MostPopularOrders from "../pages/home/most popular/MostPopularOrders";
+import MostVisitedOrders from "../pages/home/most viseted/MostVisitedOrders";
 
 function Router() {
 
@@ -64,7 +66,10 @@ function Router() {
       <Route path="/support" element={<Support />} />
       <Route path="/error-500" element={<Page500 />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />}>
+        <Route index={true} element={<MostPopularOrders />} />
+        <Route path="/most-visited" element={<MostVisitedOrders />} />
+      </Route>
       <Route path="*" element={<Page404 />} />
     </Routes>
   );

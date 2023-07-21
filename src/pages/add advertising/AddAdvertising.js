@@ -8,6 +8,7 @@ export default function AddAdvertising() {
 
   const navigate = useNavigate();
   const { state } = useLocation();
+  console.log(state)
 
   const [options, setOptions] = useState({
     nardeban: false,
@@ -27,6 +28,8 @@ export default function AddAdvertising() {
       ...state,
       ...options
     }
+
+    console.log(obj)
 
     axios.post("http://127.0.0.1:8000/api/addorder", obj)
       .then(res => dispatch(getOrders()))

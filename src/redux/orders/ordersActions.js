@@ -27,6 +27,7 @@ const getOrders = () => {
 
         axios.get("http://127.0.0.1:8000/api/orders")
             .then(res => {
+                console.log(res.data.results)
                 dispatch(getOrdersSuccess(res.data.results.reverse()))
             }).catch(err => dispatch(getOrdersFailed(err.message)))
     }

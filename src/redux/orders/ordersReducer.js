@@ -12,7 +12,7 @@ const ordersReducer = (state = initState, action) => {
                 loading: true,
             }
         case "GET_ORDERS_SUCCESS":
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 loading: false,
@@ -20,7 +20,7 @@ const ordersReducer = (state = initState, action) => {
                 error: null
             }
         case "GET_ORDERS_FAILED":
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 loading: false,
