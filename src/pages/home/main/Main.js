@@ -2,11 +2,20 @@ import Ads from "../../../components/Ads";
 import Categories from "../categories/Categorie";
 import NewestAds from "../newest ads/NewestAds";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Main() {
 
   const location = useLocation();
   
+  // useEffect(() => {
+
+  //   axios.get(`http://127.0.0.1:8000/api/search?keyword=سی`)
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err))
+
+  // }, [])
 
   return (
     <section id="main" className="clearfix home-default">

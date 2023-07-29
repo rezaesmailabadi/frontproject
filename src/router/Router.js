@@ -27,6 +27,7 @@ import VerifyCode from "../pages/verify code/VerifyCode";
 import { getOrders } from "../redux/orders/ordersActions";
 import MostPopularOrders from "../pages/home/most popular/MostPopularOrders";
 import MostVisitedOrders from "../pages/home/most viseted/MostVisitedOrders";
+import Search from "../pages/search/Search";
 
 function Router() {
 
@@ -40,15 +41,13 @@ function Router() {
   return (
     <Routes>
       <Route path="/about-us" element={<AboutUs />} />
-      <Route
-        path="/add-advertising-details"
-        element={<AddAdvertisingDetails />}
-      />
+      <Route path="/add-advertising-details" element={<AddAdvertisingDetails />} />
       <Route path="/add-advertising" element={<AddAdvertising />} />
       {/* <Route path="/categories/:id" element={<Categories />} /> */}
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/details/:id" element={<Details />} />
       <Route path="/advertisements/:id?" element={<Advertisements />} />
+      <Route path="/search/:query" element={<Search />} />
 
       {/* <Route exact path="/category/:id" element={<CategoryOrder />} /> */}
 

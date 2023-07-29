@@ -1,16 +1,31 @@
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import Loader from '../../components/Loader';
 
 export default function Dashboard() {
 
     const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [myProfileData, setMyProfileData] = useState(null)
 
     useEffect(() => {
+
+        const fetchData = () => {
+            setLoading(true);
+            axios.get(`http://127.0.0.1:8000/api/my-profile/${cookies.userID}`)
+                .then(res => { setMyProfileData({ ...res.data }); setLoading(false); console.log(res.data) })
+                .catch(err => console.log(err))
+        }
+
         if (!cookies.userID) {
             navigate("/login")
+        } else {
+            fetchData();
         }
+
     }, [])
 
     return (
@@ -27,24 +42,32 @@ export default function Dashboard() {
                 </div>
 
                 <div className="ad-profile section">
-                    <div className="user-profile">
-                        <div className="user-images">
-                            <img src="/images/user.jpg" alt="User Images" className="img-fluid" />
-                        </div>
-                        <div className="user">
-                            <h2>سلام, <a href="#">ایمان عزیز</a></h2>
-                            <h5>آخرین ورود شما سه‌شنبه ، 21 اردیبهشت 1399</h5>
-                        </div>
+                    {
+                        loading ? <Loader />
+                            :
+                            <div className="user-profile">
+                                <div className="user-images">
+                                    <img
+                                        src={myProfileData?.profile_photo_path ? myProfileData?.profile_photo_path : "/images/user.jpg"}
+                                        alt="User Images"
+                                        className="img-fluid user-image"
+                                    />
+                                </div>
+                                <div className="user">
+                                    <h2>سلام, <a href="#">{myProfileData?.first_name || ""}</a></h2>
+                                    {/* <h5>آخرین ورود شما سه‌شنبه ، 21 اردیبهشت 1399</h5> */}
+                                </div>
 
-                        <div className="favorites-user">
-                            <div className="my-ads">
-                                <Link to="/dashboard/my-ads">23<small>آگهی‌های من</small></Link>
+                                <div className="favorites-user">
+                                    <div className="my-ads">
+                                        <Link to="/dashboard/my-ads">{myProfileData?.count_my_orders || 0}<small>آگهی‌های من</small></Link>
+                                    </div>
+                                    <div className="favorites">
+                                        <a href="#">{myProfileData?.count_my_popular_orders || 0}<small>علاقه‌مندیها</small></a>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="favorites">
-                                <a href="#">18<small>علاقه‌مندیها</small></a>
-                            </div>
-                        </div>
-                    </div>
+                    }
 
                     <ul className="user-menu">
 
@@ -114,7 +137,7 @@ export default function Dashboard() {
 
                 <div className="profile">
                     <div className="row">
-                        <Outlet />
+                        <Outlet context={[myProfileData, setMyProfileData]} />
 
                         <div className="col-md-4 text-center">
                             <div className="recommended-cta">
