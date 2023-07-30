@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getOrders } from "../../redux/orders/ordersActions";
 
 export default function AddAdvertising() {
 
+  const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
   const navigate = useNavigate();
   const { state } = useLocation();
   console.log(state)
@@ -30,6 +32,15 @@ export default function AddAdvertising() {
     }
 
     console.log(obj)
+    if (options.nardeban && options.urgent) {
+      console.log("USERID => ", cookies.userID, "PRICE => ", 60000)
+    } else if (options.nardeban) {
+      console.log("USERID => ", cookies.userID, "PRICE => ", 20000)
+    } else if (options.urgent) {
+      console.log("USERID => ", cookies.userID, "PRICE => ", 40000)
+    } else {
+      console.log("USERID => ", cookies.userID, "PRICE => ", 0)
+    }
 
     axios.post("http://127.0.0.1:8000/api/addorder", obj)
       .then(res => dispatch(getOrders()))
