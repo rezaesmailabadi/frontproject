@@ -1,11 +1,13 @@
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 
 export default function Advertising({ order }) {
 
+  const [cookies, setCookie, removeCookie] = useCookies(["userID"]);
+
   if (!order) {
     return <>NULL</>
   }
-
 
   return (
     <div className="ad-item row">
@@ -44,25 +46,20 @@ export default function Advertising({ order }) {
               <i className="fa fa-tags"></i>دسته دوم
             </a>
           </div>
-          <div className="user-option pull-right">
-            <a
-              // href="#"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="ایران- تهران"
-            >
-              <i className="fa fa-map-marker"></i>{" "}
-            </a>
-            <a
-              className="online"
-              // href="#"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="فروشنده"
-            >
-              <i className="fa fa-suitcase"></i>{" "}
-            </a>
-          </div>
+          {
+            cookies.userID == order.user_id && <div className="user-option pull-right">
+              <a
+                className="btn delete-btn"
+              >
+                حذف
+              </a>
+              <a
+                className="btn edit-btn"
+              >
+                ویرایش
+              </a>
+            </div>
+          }
         </div>
       </div>
     </div>

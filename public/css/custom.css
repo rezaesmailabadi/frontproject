@@ -138,3 +138,11 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.pull-right .delete-btn{
+    color: red !important;
+}
+
+.pull-right .edit-btn{
+    color: rgb(137, 137, 0) !important;
+}
