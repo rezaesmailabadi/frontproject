@@ -107,6 +107,12 @@
 .select-nardeban {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.select-nardeban div {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
 }
 
