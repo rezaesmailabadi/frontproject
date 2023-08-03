@@ -6,9 +6,8 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function Main() {
-
   const location = useLocation();
-  
+
   // useEffect(() => {
 
   //   axios.get(`http://127.0.0.1:8000/api/search?keyword=سی`)
@@ -16,6 +15,17 @@ export default function Main() {
   //     .catch(err => console.log(err))
 
   // }, [])
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/api/filterprice`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
+
+
+
+
 
   return (
     <section id="main" className="clearfix home-default">
@@ -103,7 +113,6 @@ export default function Main() {
                       <span>
                         <i className="fa fa-angle-right" aria-hidden="true"></i>
                         <i className="fa fa-angle-left" aria-hidden="true"></i>
-
                       </span>
                     </div>
                   </div>
@@ -125,7 +134,11 @@ export default function Main() {
               </div>
               <div className="section trending-ads">
                 <div className="section-title tab-manu">
-                  <h4>{location.pathname === "/" ? "محبوبترین آگهی‌ها" : "پربازدیدترین آگهی‌ها"}</h4>
+                  <h4>
+                    {location.pathname === "/"
+                      ? "محبوبترین آگهی‌ها"
+                      : "پربازدیدترین آگهی‌ها"}
+                  </h4>
                   <ul className="nav nav-tabs" role="tablist">
                     <li role="presentation">
                       <NavLink to="/" data-toggle="tab">

@@ -5,21 +5,26 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getOrders } from "../../redux/orders/ordersActions";
 
 export default function AddAdvertising() {
-
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [options, setOptions] = useState({
     nardeban: { active: false, price: 20000 },
-    urgent: { active: false, price: 40000 }
-  })
+    urgent: { active: false, price: 40000 },
+  });
 
   const dispatch = useDispatch();
 
-  const optionChangeHandler = e => {
-    setOptions({ ...options, [e.target.name]: { ...options[e.target.name], active: !options[e.target.name].active } })
-  }
+  const optionChangeHandler = (e) => {
+    setOptions({
+      ...options,
+      [e.target.name]: {
+        ...options[e.target.name],
+        active: !options[e.target.name].active,
+      },
+    });
+  };
 
   const onSubmitChange = (e) => {
     e.preventDefault();
@@ -27,27 +32,33 @@ export default function AddAdvertising() {
     const obj = {
       ...state,
       nardeban: options.nardeban.active,
-      urgent: options.urgent.active
-    }
+      urgent: options.urgent.active,
+    };
 
     if (totalPrice) {
-      console.log("userID => ", obj.user_id, "Total Price => ", totalPrice)
+      console.log("userID => ", obj.user_id, "Total Price => ", totalPrice);
     }
 
-    axios.post("http://127.0.0.1:8000/api/addorder", obj)
-      .then(res => dispatch(getOrders()))
-      .catch(err => console.log(err))
-  }
+    axios
+      .post("http://127.0.0.1:8000/api/addorder", obj)
+      .then((res) => dispatch(getOrders()))
+      .catch((err) => console.log(err));
+  };
+
 
   useEffect(() => {
     if (!state) {
-      navigate("/add-advertising-details")
+      navigate("/add-advertising-details");
     }
   }, []);
 
   useEffect(() => {
-    setTotalPrice(Object.keys(options).filter(key => options[key].active)?.reduce((acc, cur) => acc + options[cur].price, 0))
-  }, [options])
+    setTotalPrice(
+      Object.keys(options)
+        .filter((key) => options[key].active)
+        ?.reduce((acc, cur) => acc + options[cur].price, 0)
+    );
+  }, [options]);
 
   return (
     <section id="main" className="clearfix ad-details-page">
@@ -71,12 +82,14 @@ export default function AddAdvertising() {
                       محصول و خدمت خود را بفروشید{" "}
                       {/* <span className="pull-right">* فیلدهای اجباری</span> */}
                     </h4>
-
                     <div className="row form-group select-option">
                       <div className="col-12">
                         <div className="select-nardeban">
                           <div>
-                            <label htmlFor="select-option-1" className="label-option">
+                            <label
+                              htmlFor="select-option-1"
+                              className="label-option"
+                            >
                               نردبان
                             </label>
                             <input
@@ -90,12 +103,20 @@ export default function AddAdvertising() {
                           <span>{options.nardeban.price}</span>
                         </div>
                         <h5>توضیحات :</h5>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز</p>
+                        <p>
+                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                          چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون
+                          بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                          برای شرایط فعلی تکنولوژی مورد نیاز
+                        </p>
                       </div>
                       <div className="col-12">
                         <div className="select-nardeban">
                           <div>
-                            <label htmlFor="select-option-2" className="label-option">
+                            <label
+                              htmlFor="select-option-2"
+                              className="label-option"
+                            >
                               فوری
                             </label>
                             <input
@@ -109,7 +130,12 @@ export default function AddAdvertising() {
                           <span>{options.urgent.price}</span>
                         </div>
                         <h5>توضیحات :</h5>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز</p>
+                        <p>
+                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                          چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون
+                          بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                          برای شرایط فعلی تکنولوژی مورد نیاز
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -128,11 +154,7 @@ export default function AddAdvertising() {
             <div className="col-lg-4">
               <div className="section quick-rules">
                 <p>مبلغ قابل پرداخت</p>
-                <span>
-                  {
-                    totalPrice
-                  }
-                </span>
+                <span>{totalPrice}</span>
               </div>
             </div>
           </div>

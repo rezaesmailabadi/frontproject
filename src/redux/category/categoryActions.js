@@ -20,6 +20,7 @@ const getCategoryFailed = err => {
     }
 }
 
+
 const getCategory = () => {
     return (dispatch) => {
 
@@ -31,6 +32,7 @@ const getCategory = () => {
             }).catch(err => dispatch(getCategoryFailed(err.message)))
     }
 }
+
 
 export {
     getCategoryRequest,

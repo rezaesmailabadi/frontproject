@@ -25,7 +25,7 @@ export default function AddAdvertisingDetails() {
     image2: "",
     image3: "",
     order_category: null,
-    user_id: Number(cookies.userID),
+    user_id: cookies.userID,
   })
   const [userOrderRequired, setUserOrderRequired] = useState({
     title: "",
